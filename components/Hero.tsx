@@ -1,3 +1,4 @@
+// components/Hero.tsx
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
@@ -22,8 +23,8 @@ const Hero: React.FC = () => {
 
   return (
     <section ref={sectionRef} className="section" id="hero">
-      <h1 ref={titleRef} className="glow">Explore the Universe</h1>
-      <p ref={subtitleRef}>Journey Through Stars</p>
+      <h1 ref={titleRef} className="glow">Abyss Global</h1>
+      <p ref={subtitleRef}>Navigate the Digital Void</p>
     </section>
   );
 };
