@@ -44,7 +44,12 @@ p { font-size: 1rem; }
   text-align: center;
   opacity: 0; /* Init hidden */
   transform: translateY(50px); /* Stagger from below */
-  transition: none; /* GSAP overrides */
+  transition: opacity 1s ease, transform 1s ease; /* CSS transition for reveal */
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .section#hero { opacity: 0; transform: translateY(0); } /* Hero special: fade only */

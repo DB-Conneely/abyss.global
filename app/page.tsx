@@ -1,4 +1,3 @@
-// app/page.tsx
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -13,9 +12,7 @@ import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Project from '@/components/Project';
 import Contact from '@/components/Contact';
-import Footer from '@/components/Footer'; // Import Footer
-
-import * as animations from '@/utils/animations';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -55,14 +52,13 @@ export default function Home() {
 
     const handleLenis = (e: any) => {
       setScrollY(lenisRef.current?.scroll || 0);
-      animations.checkReveals(lenisRef.current?.scroll || 0);
     };
     lenisRef.current?.on('scroll', handleLenis);
 
     // Resize for height changes
     const handleResize = () => {
       lenisRef.current?.resize();
-      updateMainHeight(); // Re-calculate height on resize
+      updateMainHeight();
     };
     window.addEventListener('resize', handleResize);
 
@@ -72,6 +68,38 @@ export default function Home() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Setup IntersectionObserver-based reveals after load
+  useEffect(() => {
+    if (isLoaded) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const sections = document.querySelectorAll('.section:not(#hero)');
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1, // Trigger when 10% of section is visible
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            const section = entry.target as HTMLElement;
+            section.classList.add('visible'); // Add class for CSS transition
+            gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }); // Optional GSAP for finer control
+            document.body.dispatchEvent(new CustomEvent('sectionBurst', { detail: { index } }));
+            observer.unobserve(section); // Once only
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach((section) => observer.observe(section));
+
+      return () => {
+        sections.forEach((section) => observer.unobserve(section));
+      };
+    }
+  }, [isLoaded]);
 
   // Function to dynamically set main minHeight to sum of children heights
   const updateMainHeight = () => {
