@@ -40,7 +40,14 @@ export const heroOpen = (
   // Camera pullback: Explicit z for Vector3
   tl.fromTo(camera.position, { z: 2 }, { z: 10 }, 0);
 
-  tl.to('.section#hero', { opacity: 1, y: 0, duration: 1 }, '-=1');
+  // Fade in the hero section container and then animate the text
+  tl.to('.section#hero', { opacity: 1, duration: 1.5 }, 0.5);
+  tl.fromTo(
+    ['.section#hero h1', '.section#hero p'],
+    { opacity: 0, y: 50 },
+    { opacity: 1, y: 0, duration: 1, stagger: 0.3, ease: 'power3.out' },
+    1
+  );
 };
 
 // Scroll reveals
