@@ -6,7 +6,7 @@ const Header: React.FC = () => {
   return (
     <header className="header-layout">
       <a href="/" style={{ padding: 0, margin: 0 }}>
-        <img src="/abyss-logo.png" alt="Abyss Global Logo" height="60" /> {/* Increased logo size */}
+        <img src="/abyss-logo.png" alt="Abyss Global Logo" height="110" /> {/* Increased to 80 for more noticeable size */}
       </a>
       <nav className="navbar-nav">
         <a href="#about" className="nav-link">About</a>

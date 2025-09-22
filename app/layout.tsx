@@ -1,7 +1,14 @@
 import type { Metadata } from 'next';
+import { Michroma } from 'next/font/google';
 
 import '../styles/globals.css'; // Import global styles with color tokens and resets
 import Header from '@/components/Header'; // Import the client-side Header
+
+const michroma = Michroma({
+  subsets: ['latin'],
+  variable: '--font-michroma',
+  weight: ['400'], // Regular weight, but bold via CSS for effective/simple
+});
 
 // Metadata for SEO
 export const metadata: Metadata = {
@@ -28,7 +35,7 @@ export default function RootLayout({
         <link rel="icon" href="/abyss-logo.png" />
         <link rel="apple-touch-icon" href="/abyss-logo.png" sizes="180x180" />
       </head>
-      <body className="antialiased">
+      <body className={`${michroma.variable} antialiased`}>
         <div className="aura-layer">
           <div className="aura light-blue"></div>
           <div className="aura dark-blue"></div>
