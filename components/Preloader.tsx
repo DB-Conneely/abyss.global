@@ -19,7 +19,7 @@ const Preloader: React.FC = () => {
         transition: 'opacity 0.5s ease', // Basic CSS transition; GSAP overrides in utils
       }}
     >
-      <div className="glow">Loading Universe...</div> {/* Simple text with glow class from globals.css */}
+      <div className="glow">ENTERING THE ABYSS...</div> {/* Simple text with glow class from globals.css */}
     </div>
   );
 };

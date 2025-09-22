@@ -8,9 +8,10 @@
 html, body {
   height: 100%;
   overflow-x: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: var(--text);
   background-color: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  overscroll-behavior-x: none; /* Prevent horizontal overscroll triggering back/forward */
 }
 
 /* Color tokens */
@@ -52,7 +53,12 @@ p { font-size: 1rem; }
   transform: translateY(0);
 }
 
-.section#hero { opacity: 0; transform: translateY(0); } /* Hero special: fade only */
+.section#hero { 
+  opacity: 0; 
+  transform: translateY(0); 
+  margin-top: -80px; /* Pull hero up to offset padding */
+  min-height: 100vh; /* Standard viewport height to maintain centering */
+}
 
 .glow {
   box-shadow: 0 0 20px var(--subtle-glow); /* Wider glow */
@@ -73,4 +79,91 @@ button:focus {
   h1 { font-size: 2rem; }
   h2 { font-size: 1.5rem; }
   .section { padding: 2rem 1rem; }
+}
+
+/* Aura background */
+.aura-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.aura {
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.3;
+}
+
+.aura.light-blue {
+  background: #a29bfe;
+  top: -30%;
+  left: -30%;
+}
+
+.aura.dark-blue {
+  background: #6a1b9a;
+  top: -10%;
+  right: -30%;
+}
+
+.aura.deep-purple {
+  background: #4a148c;
+  bottom: -30%;
+  left: 20%;
+}
+
+.aura.pink {
+  background: #ab47bc;
+  bottom: -20%;
+  right: -10%;
+}
+
+/* Header styles */
+.header-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 4rem; /* Increased horizontal padding for less "boxed" feel */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background: transparent;
+  transition: background 0.3s ease;
+  pointer-events: auto;
+}
+
+.header-layout.scrolled {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 3rem; /* Increased gap for more spread out nav links */
+}
+
+.nav-link {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+/* Content padding to avoid header overlap */
+#smooth-content {
+  padding-top: 80px; /* Adjust based on header height; assumes ~60px header + margin */
 }

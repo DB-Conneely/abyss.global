@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
   return (
     <section className="section" id="hero">
       <h1 className="glow">Abyss Global</h1>
-      <p>Navigate the Digital Void</p>
+      <p>Explore The Abyss</p>
     </section>
   );
 };

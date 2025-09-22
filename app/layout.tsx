@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+
 import '../styles/globals.css'; // Import global styles with color tokens and resets
+import Header from '@/components/Header'; // Import the client-side Header
 
 // Metadata for SEO
 export const metadata: Metadata = {
@@ -23,9 +25,17 @@ export default function RootLayout({
         {/* Viewport for responsive design */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Favicon placeholder */}
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/abyss-logo.png" />
+        <link rel="apple-touch-icon" href="/abyss-logo.png" sizes="180x180" />
       </head>
-      <body>
+      <body className="antialiased">
+        <div className="aura-layer">
+          <div className="aura light-blue"></div>
+          <div className="aura dark-blue"></div>
+          <div className="aura deep-purple"></div>
+          <div className="aura pink"></div>
+        </div>
+        <Header /> {/* Use the client-side Header component */}
         {children}
       </body>
     </html>
