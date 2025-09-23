@@ -2,16 +2,18 @@
 import React, { useRef, useEffect, useLayoutEffect, MutableRefObject } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Stars, OrbitControls, Environment, useGLTF } from '@react-three/drei';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
+// import { EffectComposer, Bloom } from '@react-three/postprocessing'; // Comment out or remove this import
 import * as THREE from 'three';
 import gsap from 'gsap';
 import Lenis from 'lenis';
 import * as animations from '@/utils/animations';
+
 interface SceneProps {
   isMobile: boolean;
   scrollY: number;
   lenis?: Lenis | null;
 }
+
 const Scene: React.FC<SceneProps> = ({ isMobile, scrollY, lenis }) => {
   const { camera, gl, scene: threeScene } = useThree();
   const heroRef = useRef<THREE.Group>(null);
@@ -158,11 +160,7 @@ const Scene: React.FC<SceneProps> = ({ isMobile, scrollY, lenis }) => {
     });
     // Removed scroll-based camera lerps to keep globe fixed/centered with no movement on scroll
   });
-  const effects = !isMobile ? (
-    <EffectComposer>
-      <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.7} height={400} />
-    </EffectComposer>
-  ) : null;
+  const effects = null; // Remove Bloom for consistent darker shade
   return (
     <>
       <color attach="background" args={['#000011']} /> {/* Slight navy tint to ease pure black */}

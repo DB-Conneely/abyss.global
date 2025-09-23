@@ -121,14 +121,6 @@ export default function Home() {
 
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
-  // Placeholder function for graphic interludes
-  const GraphicInterlude = ({ id }: { id: string }) => (
-    <div id={id} className="section" style={{ minHeight: '50vh', backgroundColor: 'rgba(20, 0, 40, 0.3)' }}>
-      <p>Graphic Interlude Placeholder ({id})</p>
-      <p>This space will hold a nebula pan, 3D object, or animation.</p>
-    </div>
-  );
-
   return (
     <div ref={containerRef} id="smooth-wrapper" style={{ height: '100%', overflow: 'hidden' }}>
       {!isLoaded && <Preloader />}
@@ -145,7 +137,6 @@ export default function Home() {
       {/* Main content area - Removed explicit minHeight and paddingBottom; using dynamic calculation */}
       <main ref={mainRef} id="smooth-content" style={{ position: 'relative', zIndex: 1, overflowY: 'auto' }}>
         <Hero />
-        <GraphicInterlude id="graphic-interlude-1" />
         <About />
         {/* Project instances with dummy data */}
         <Project
@@ -169,7 +160,6 @@ export default function Home() {
           imageUrl=""
           projectLink="#"
         />
-        <GraphicInterlude id="graphic-interlude-2" />
         <Contact />
         {/* Footer is placed last and should now sit correctly at the end */}
         <Footer />
