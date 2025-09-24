@@ -6,8 +6,8 @@ const Hero: React.FC = () => {
   // This component is now purely presentational.
   return (
     <section className="section" id="hero">
-      <h1 className="glow">Abyss Global</h1>
-      <p>Navigate the Digital Void</p>
+      <h1 className="glow">ABYSS GLOBAL</h1>
+      <p>Explore The Abyss</p>
     </section>
   );
 };

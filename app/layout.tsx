@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Michroma } from 'next/font/google';
+import { Michroma, Montserrat } from 'next/font/google'; // Added Montserrat import
 
 import '../styles/globals.css'; // Import global styles with color tokens and resets
 import Header from '@/components/Header'; // Import the client-side Header
@@ -8,6 +8,11 @@ const michroma = Michroma({
   subsets: ['latin'],
   variable: '--font-michroma',
   weight: ['400'], // Regular weight, but bold via CSS for effective/simple
+});
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
 });
 
 // Metadata for SEO
@@ -35,7 +40,7 @@ export default function RootLayout({
         <link rel="icon" href="/abyss-logo.png" />
         <link rel="apple-touch-icon" href="/abyss-logo.png" sizes="180x180" />
       </head>
-      <body className={`${michroma.variable} antialiased`}>
+      <body className={`${michroma.variable} ${montserrat.variable} antialiased`}> {/* Added montserrat.variable */}
         <div className="aura-layer">
           <div className="aura light-blue"></div>
           <div className="aura dark-blue"></div>

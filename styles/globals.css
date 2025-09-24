@@ -21,7 +21,7 @@ html, body {
   --accent: #9C27B0;
   --subtle-glow: rgba(208, 92, 227, 0.5); /* Boosted opacity */
   --text: #EDE7F6;
-  --glow-purple: #AB47BC; /* Matching purple for text glow */
+  --glow-purple: #9a4bc3; /* Matching purple for text glow */
 }
 
 /* Typography */
@@ -32,9 +32,22 @@ h1, h2, p {
 h1 { 
   font-size: 4rem; /* Increased size for bolder presence */
   font-weight: bold; /* Bold for Michroma */
+  color: #ffffff; 
 }
-h2 { font-size: 2rem; font-weight: bold; } /* Bold for headings */
-p { font-size: 1rem; }
+h2 { 
+  font-size: 2rem; 
+  font-weight: bold; /* Bold for headings */
+  color: #ffffff; 
+}
+p { 
+  font-size: 1.2rem; 
+  line-height: 1.6; 
+  margin-bottom: 1.5rem; 
+  max-width: 800px; 
+  margin-left: auto; 
+  margin-right: auto; 
+  font-family: var(--font-montserrat); /* Added for better readability */
+}
 
 /* Sections: Init hidden for reveals */
 .section {
@@ -65,7 +78,14 @@ p { font-size: 1rem; }
 }
 
 .glow {
-  text-shadow: 0 0 10px var(--glow-purple), 0 0 20px var(--glow-purple), 0 0 30px var(--glow-purple); /* Multi-layer text glow, no box */
+  color: #ffffff; /* Darker purple fill for consistency */
+  -webkit-text-stroke: 0.01px rgb(119, 0, 255); /* Thicker black outline for noticeability; WebKit/Chrome/Safari */
+  text-shadow: 
+    0 0 10px var(--glow-purple), 
+    0 0 20px var(--glow-purple), 
+    0 0 30px var(--glow-purple), 
+    -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black,
+    -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black; /* Fallback outline simulation for other browsers */
   animation: pulsate-glow 2s ease-in-out infinite alternate; /* Pulsating effect */
 }
 

@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
         // Do not set explicit height or min-height
       }}
     >
-      <p>© 2025 xAI. All rights reserved.</p>
+      <p>© 2025 Abyss Global. All rights reserved.</p>
       {/* Placeholder for links or additional info if needed */}
     </footer>
   );
