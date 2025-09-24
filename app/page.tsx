@@ -138,27 +138,46 @@ export default function Home() {
       <main ref={mainRef} id="smooth-content" style={{ position: 'relative', zIndex: 1, overflowY: 'auto' }}>
         <Hero />
         <About />
-        {/* Project instances with dummy data */}
+        {/* Project instances with unique data */}
         <Project
           index={1}
-          title="Project Alpha"
-          description="A groundbreaking exploration into the core of the digital nebula. Features advanced algorithms and immersive visuals."
-          imageUrl=""
-          projectLink="#"
+          title="IntuAItive"
+          description={`IntuAItive is a full-stack SaaS application that transforms audio from meetings, lectures, podcasts, and recordings into actionable insights. Leveraging advanced AI for transcription and summarization, it processes YouTube URLs, uploaded MP4/M4A files, or live recordings—delivering sentiment analysis, overviews, customizable bullet summaries, and full transcripts. With support for real-time transcription and tailored tones (e.g., Business, Student, Custom), it streamlines productivity for professionals, students, and creators in dynamic environments.
+  
+          This project showcases expertise in AI integration, real-time systems, secure authentication, and scalable full-stack development, making it an ideal demonstration of modern web engineering and machine learning applications. As well as systems architecture and Engineering to deliver this application end to end SOLO. Make sure to check out the video demo to see it in action!`}
+
+          imageUrl="/waverob.png" // Unique images per project
+          links={[
+            { label: "Video Demo", url: "https://youtu.be/vsZa6hAXyZ4" },
+            { label: "GitHub Repo", url: "https://github.com/DB-Conneely/AISummary-Project" },
+          ]}
         />
         <Project
           index={2}
-          title="Project Beta"
-          description="Navigating the treacherous asteroid fields of user experience. A testament to precision engineering and intuitive design."
-          imageUrl=""
-          projectLink="#"
+          title="Flash Solana"
+          description={`Flash is a Telegram trading bot built on the solana ecosystem. The sole focus was to direct my current solana knowledge into a fun and useful project that could be used by others. The bot allows users to connect their solana wallet or generate a fresh wallet and execute trades via simple and beginner friendly commands/buttons in telegram. Users can also tracks their portfolio, adjust slippage and other such trading features. 
+          
+          Flash is built using Typescript, MongoDB and of course the Solana web3.js library - Winston-based logging for debugging, errors, and transactions, Redis for state management, locks, and security, 61 passing Jest tests ensure reliability, Dockerized and configured for Fly.io deployment.
+          
+          Please see the video demo to see it in action, or try it out yourself via the link below!`}
+          imageUrl="/flash.png" // Different images later
+          links={[
+            { label: "Video Demo", url: "https://www.youtube.com/watch?v=iJOtwT8uimE" },
+            { label: "GitHub Repo", url: "https://github.com/DB-Conneely/flash-sol" },
+            { label: "WHY NOT TRY!", url: "https://t.me/flashsol_bot" }
+          ]}
         />
         <Project
           index={3}
-          title="Current Mission: In Progress"
-          description="A神秘 project currently under development. Stay tuned for launch details as we breach the event horizon."
-          imageUrl=""
-          projectLink="#"
+          title="Current Projects"
+          description={`Please check back soon for updates on my latest projects! I'm continually working on new and exciting developments that I'll be sharing here. 
+            
+          I am Currently working on a few new ideas mostly around AI integration and automation, experimenting with n8n chatbots, no code tools and automated Agents. An example currently is the cli-auto tool, its in very early stages but its an auto development loop utilising prompt and context engineering to generate, test and refine code all from the command line. More to come on this soon!`}
+          imageUrl="/abyss-logo.png" // Different images later
+          links={[
+            { label: "Video Demo", url: "#video-mission" },
+            { label: "GitHub Profile", url: "https://github.com/DB-Conneely" },
+          ]}
         />
         <Contact />
         {/* Footer is placed last and should now sit correctly at the end */}
