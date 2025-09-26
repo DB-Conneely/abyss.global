@@ -1,21 +1,18 @@
-// components/BlogScene.tsx (Updated - Increase scale to 4 for larger/closer feel; ensure centering)
+// components/BlogScene.tsx (Updated - Add cleanup on unmount to prevent context loss/blank on remount)
 'use client';
-
 import React, { useRef, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
-
 interface BlogSceneProps {
   isMobile: boolean;
 }
-
 const BlogScene: React.FC<BlogSceneProps> = ({ isMobile }) => {
   const groupRef = useRef<THREE.Group>(null);
-  const controlsRef = useRef<any>(null); // For OrbitControls
+  const controlsRef = useRef<any>(null);
   const { scene: spaceBoi } = useGLTF('/models/space-boi.glb');
-
-  // Exact centering/tint from Earth logic (adapted - dead center)
+  const { gl } = useThree(); // Access renderer for forceContextLoss/cleanup
+  // Center, scale, tint purple (no rotation here—model still)
   useEffect(() => {
     if (spaceBoi && groupRef.current) {
       spaceBoi.traverse((child) => {
@@ -24,13 +21,13 @@ const BlogScene: React.FC<BlogSceneProps> = ({ isMobile }) => {
         }
       });
       spaceBoi.rotation.x = 0;
-      spaceBoi.rotation.y = 0; // Face front
+      spaceBoi.rotation.y = 0;
       const boxPreScale = new THREE.Box3().setFromObject(spaceBoi);
       const sizePreScale = new THREE.Vector3();
       boxPreScale.getSize(sizePreScale);
-      const desiredDiameter = 8; // Match Earth
+      const desiredDiameter = 8;
       const scaleFactor = desiredDiameter / Math.max(sizePreScale.x, sizePreScale.y, sizePreScale.z);
-      spaceBoi.scale.multiplyScalar(scaleFactor * 0.5); // Increased effective scale to 4 (scaleFactor ~8, *0.5=4; adjust 0.4-0.6 for size)
+      spaceBoi.scale.multiplyScalar(scaleFactor * 0.5); // Keep 4 effective
       spaceBoi.updateMatrixWorld(true);
       const finalBox = new THREE.Box3().setFromObject(spaceBoi);
       const finalCenter = new THREE.Vector3();
@@ -42,13 +39,27 @@ const BlogScene: React.FC<BlogSceneProps> = ({ isMobile }) => {
         controlsRef.current.update();
       }
     }
-  }, [spaceBoi]);
-
+    // Cleanup on unmount: Dispose resources to prevent context loss on remount/switch
+    return () => {
+      if (spaceBoi) {
+        spaceBoi.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            child.geometry.dispose();
+            if (child.material instanceof THREE.Material) {
+              child.material.dispose();
+            }
+          }
+        });
+      }
+      if (gl) {
+        gl.forceContextLoss(); // Reset WebGL state to avoid "too many contexts" on page switch
+      }
+    };
+  }, [spaceBoi, gl]);
   // No model rotation in useFrame (still model)
   useFrame(() => {
     // Controls handle camera pan
   });
-
   return (
     <>
       <color attach="background" args={['#000011']} />
@@ -57,18 +68,17 @@ const BlogScene: React.FC<BlogSceneProps> = ({ isMobile }) => {
       <directionalLight position={[0, 10, 5]} intensity={1.2} color="#ffffff" />
       <group ref={groupRef} />
       {!isMobile && (
-        <OrbitControls 
+        <OrbitControls
           ref={controlsRef}
           enablePan={false}
           enableZoom={false}
           minPolarAngle={Math.PI / 3}
           maxPolarAngle={2 * Math.PI / 3}
           autoRotate={true}
-          autoRotateSpeed={2} // Keep quicker pan
+          autoRotateSpeed={2}
         />
       )}
     </>
   );
 };
-
 export default BlogScene;

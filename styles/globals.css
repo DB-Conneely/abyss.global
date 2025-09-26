@@ -644,3 +644,41 @@ textarea.input-purple:-webkit-autofill:not(:placeholder-shown) {
     grid-template-columns: 1fr; /* Stack on mobile */
   }
 }
+
+/* In styles/globals.css - Add/Update for blog header padding and top closeness */
+.section#blog {
+  padding-top: 2rem; /* Reduced top padding to bring closer to screen top (from 4rem) */
+}
+
+.section#blog h1 {
+  margin-bottom: 1rem; /* Padding between header and subtext */
+}
+
+/* Update .blog-posts-container for desktop 3 per row */
+.blog-posts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Mobile: 1-2 dynamic */
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+@media (min-width: 769px) {
+  .blog-posts-container {
+    grid-template-columns: repeat(3, 1fr); /* Desktop: 3 per row */
+  }
+}
+
+/* Pagination buttons (new - center at bottom) */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.pagination .submit-button {
+  width: auto; /* Button style from globals */
+}

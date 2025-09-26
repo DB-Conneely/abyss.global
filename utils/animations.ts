@@ -68,3 +68,19 @@ export const ctaBurst = (camera: THREE.PerspectiveCamera) => {
   gsap.to(camera.position, { z: 5, duration: 1, ease: 'power2.inOut', yoyo: true, repeat: 1 });
   document.body.dispatchEvent(new CustomEvent('particleBurst', { detail: { count: 200 } }));
 };
+
+// Add listener for custom scrollToHash event (triggers Lenis smooth scroll if available)
+export const initHashScroll = (lenis?: any) => {
+  document.body.addEventListener('scrollToHash', (e: Event) => {
+    const customEvent = e as CustomEvent;
+    const hash = customEvent.detail.hash;
+    if (lenis) {
+      lenis.scrollTo(`#${hash}`, { duration: 1.2, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    } else {
+      const element = document.getElementById(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+};

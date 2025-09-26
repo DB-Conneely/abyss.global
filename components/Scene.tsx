@@ -7,15 +7,16 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import Lenis from 'lenis';
 import * as animations from '@/utils/animations';
-
 interface SceneProps {
   isMobile: boolean;
   scrollY: number;
   lenis?: Lenis | null;
 }
-
 const Scene: React.FC<SceneProps> = ({ isMobile, scrollY, lenis }) => {
-  const { camera, gl, scene: threeScene } = useThree();
+  // Replaced direct destructuring with selector pattern for type inference and performance
+  const camera = useThree((state) => state.camera);
+  const gl = useThree((state) => state.gl);
+  const threeScene = useThree((state) => state.scene);
   const heroRef = useRef<THREE.Group>(null);
   const starGroupRef = useRef<THREE.Group>(null);
   const materialsRef = useRef<THREE.MeshStandardMaterial[]>([]); // Store materials for useFrame updates (replaces onBeforeRender)

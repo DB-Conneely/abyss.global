@@ -1,8 +1,9 @@
-// components/ClientBlog.tsx
+// components/ClientBlog.tsx (Updated - Add pagination buttons)
 'use client';
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // For page navigation
 import gsap from 'gsap';
 
 interface Post {
@@ -15,9 +16,16 @@ interface Post {
 
 interface ClientBlogProps {
   posts: Post[];
+  currentPage: number;
+  totalPosts: number;
 }
 
-export default function ClientBlog({ posts }: ClientBlogProps) {
+const POSTS_PER_PAGE = 9;
+
+export default function ClientBlog({ posts, currentPage, totalPosts }: ClientBlogProps) {
+  const router = useRouter();
+  const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
+
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -48,8 +56,8 @@ export default function ClientBlog({ posts }: ClientBlogProps) {
 
   return (
     <section className="section" id="blog">
-      <h1 className="glow">Into the Abyss: Thoughts from the Void</h1>
-      <p>A personal diary of ideas, dev experiments, and cosmic musings—updated sporadically.</p>
+      <h1 className="glow">Deep in the Abyss</h1>
+      <p>A personal diary of ideas, theories, dev experiments and anything else that ends up here.</p>
       {posts.length > 0 ? (
         <div className="blog-posts-container">
           {posts.map((post) => (
@@ -64,6 +72,20 @@ export default function ClientBlog({ posts }: ClientBlogProps) {
         </div>
       ) : (
         <p>No posts found yet—check back soon!</p>
+      )}
+      {totalPages > 1 && (
+        <div className="pagination">
+          {currentPage > 1 && (
+            <button onClick={() => router.push(`/blog?page=${currentPage - 1}`)} className="submit-button">
+              Previous
+            </button>
+          )}
+          {currentPage < totalPages && (
+            <button onClick={() => router.push(`/blog?page=${currentPage + 1}`)} className="submit-button">
+              Next
+            </button>
+          )}
+        </div>
       )}
     </section>
   );
