@@ -326,3 +326,136 @@ button:focus {
     text-align: center; /* Center-align text on mobile */
   }
 }
+
+/* Contact Container (matched to template's #contact) */
+.contact-container {
+  max-width: 600px; /* Extended width from 400px to 600px for less "skinny" feel */
+  width: 100%;
+  margin: 3rem auto 0; /* Added 3rem top margin for padding between Twitter link and form */
+  position: relative;
+  background: linear-gradient(to bottom, rgba(132, 0, 255, 0.402), rgba(63, 62, 62, 0.205)); /* Kept existing coloring */
+  padding: 25px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); /* Exact match to template */
+  border: 2px solid #6A1B9A; /* Kept existing border for coloring */
+  /* Removed border-radius for square look */
+}
+
+/* Form Titles (matched to template) */
+#contact h3 {
+  display: block;
+  font-size: 30px;
+  font-weight: 300;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+#contact h4 {
+  margin: 5px 0 15px;
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text);
+}
+
+/* Fieldsets (matched to template) */
+fieldset {
+  border: medium none !important;
+  margin: 0 0 10px;
+  min-width: 100%;
+  padding: 0;
+  width: 100%;
+}
+
+/* Inputs and Textarea (matched to template, kept purple coloring) */
+.input-purple {
+  width: 100%;
+  border: 1px solid #6A1B9A; /* Kept purple border */
+  background: rgba(132, 0, 255, 0.402); /* Kept translucent purple bg */
+  margin: 0 0 5px;
+  padding: 10px;
+  font: 400 12px/16px var(--font-montserrat); /* Used our font */
+  color: var(--text); /* Light text for visibility */
+  /* Removed rounded for square look */
+}
+
+.input-purple:focus {
+  background: rgba(132, 0, 255, 0.402); /* Explicitly keep same bg on focus to prevent white override */
+  outline: none; /* Remove default focus outline if desired, or customize */
+}
+
+.input-purple:not(:placeholder-shown) {
+  background: rgba(132, 0, 255, 0.3); /* Slightly reduced opacity when text entered (placeholder hidden) */
+}
+
+.input-purple:hover {
+  border: 1px solid #9C27B0; /* Hover to accent purple (matched template hover logic) */
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Autofill overrides (for Chrome/WebKit browsers turning it white/yellow) */
+.input-purple:-webkit-autofill,
+.input-purple:-webkit-autofill:hover,
+.input-purple:-webkit-autofill:focus {
+  background-color: rgba(132, 0, 255, 0.402) !important; /* Match base bg */
+  -webkit-box-shadow: 0 0 0 1000px rgba(132, 0, 255, 0.402) inset !important; /* Trick to force bg */
+  -webkit-text-fill-color: var(--text) !important; /* Keep text color */
+  border: 1px solid #6A1B9A !important; /* Keep border */
+}
+
+/* For filled autofill (combine with reduced opacity if text is present) */
+.input-purple:-webkit-autofill:not(:placeholder-shown) {
+  -webkit-box-shadow: 0 0 0 1000px rgba(132, 0, 255, 0.3) inset !important;
+}
+
+textarea.input-purple {
+  height: 100px;
+  max-width: 100%;
+  resize: none;
+}
+
+textarea.input-purple:not(:placeholder-shown) {
+  background: rgba(132, 0, 255, 0.3); /* Apply to textarea as well */
+}
+
+textarea.input-purple:focus {
+  background: rgba(132, 0, 255, 0.402);
+}
+
+textarea.input-purple:-webkit-autofill,
+textarea.input-purple:-webkit-autofill:hover,
+textarea.input-purple:-webkit-autofill:focus {
+  background-color: rgba(132, 0, 255, 0.402) !important;
+  -webkit-box-shadow: 0 0 0 1000px rgba(132, 0, 255, 0.402) inset !important;
+  -webkit-text-fill-color: var(--text) !important;
+  border: 1px solid #6A1B9A !important;
+}
+
+textarea.input-purple:-webkit-autofill:not(:placeholder-shown) {
+  -webkit-box-shadow: 0 0 0 1000px rgba(132, 0, 255, 0.3) inset !important;
+}
+
+/* Submit Button (matched to template, with our purple colors) */
+.submit-button {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: #6A1B9A; /* Our primary purple */
+  color: #FFF;
+  margin: 0 0 5px;
+  padding: 10px;
+  font-size: 15px;
+  /* Removed rounded for square look */
+}
+
+.submit-button:hover {
+  background: #9C27B0; /* Hover to accent purple */
+  transition: background 0.3s ease-in-out;
+}
+
+/* Remove the grid media query to keep stacked layout */
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 25px; /* Keep same padding */
+    max-width: 90%; /* Slightly wider on mobile for usability */
+  }
+}

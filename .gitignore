@@ -2,3 +2,5 @@ node_modules
 context/
 .next
 generate_full.py
+.env.local
+.env
