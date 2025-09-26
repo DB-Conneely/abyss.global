@@ -1,4 +1,4 @@
-// components/ClientPost.tsx
+// components/ClientPost.tsx (Updated - Style back button as submit-button; already is)
 'use client';
 import React, { useEffect } from 'react'; // Add useEffect import
 import { useRouter } from 'next/navigation';

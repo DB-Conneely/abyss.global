@@ -1,4 +1,4 @@
-// components/ClientBlog.tsx (Updated - Add pagination buttons)
+// components/ClientBlog.tsx (Updated - Style "Click to Read" links as submit-button; already is)
 'use client';
 
 import React, { useEffect } from 'react';

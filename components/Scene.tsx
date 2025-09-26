@@ -114,7 +114,6 @@ const Scene: React.FC<SceneProps> = ({ isMobile, scrollY, lenis }) => {
             // Store material for useFrame updates
             materialsRef.current.push(material);
             child.material = material;
-            console.log('Applied ocean-lift shader to:', child.name); // Debug
           }
         }
       });

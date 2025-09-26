@@ -1,4 +1,4 @@
-// app/blog/layout.tsx (Updated - Decrease camera z to 10 for closer view; integrate preloader logic if not already)
+// app/blog/layout.tsx (Updated - Add popstate listener to force reload on back/forward navigation; integrate preloader logic if not already)
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -14,6 +14,15 @@ export default function BlogLayout({ children }: { children: React.ReactNode }) 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 1500);
     return () => clearTimeout(timer);
+  }, []);
+
+  // NEW: Force full reload on back/forward navigation (popstate) to ensure fresh load with preloader
+  useEffect(() => {
+    const handlePopState = () => {
+      window.location.reload(); // Triggers fresh server-side load and preloader
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   return (

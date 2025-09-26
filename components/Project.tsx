@@ -1,4 +1,4 @@
-// components/Project.tsx
+// components/Project.tsx (Updated - Remove pipe separators from footer links)
 import React from 'react';
 
 // Define the props the component expects
@@ -30,16 +30,13 @@ const Project: React.FC<ProjectProps> = ({ title, description, imageUrl = "/abys
         <div className="project-footer"> {/* Bottom footer with links separated by ' | ' */}
           {links.length > 0 ? links.map((link, idx) => (
             <React.Fragment key={idx}>
-              <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
-              {idx < links.length - 1 && <span> | </span>} {/* Single | between links */}
+              <a href={link.url} target="_blank" rel="noopener noreferrer" className="submit-button">{link.label}</a> {/* Updated: Use submit-button class */}
             </React.Fragment>
           )) : (
             <>
-              <a href="#video" target="_blank" rel="noopener noreferrer">Video Demo</a>
-              <span> | </span>
-              <a href="#repo" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
-              <span> | </span>
-              <a href="#docs" target="_blank" rel="noopener noreferrer">Docs</a>
+              <a href="#video" target="_blank" rel="noopener noreferrer" className="submit-button">Video Demo</a>
+              <a href="#repo" target="_blank" rel="noopener noreferrer" className="submit-button">GitHub Repo</a>
+              <a href="#docs" target="_blank" rel="noopener noreferrer" className="submit-button">Docs</a>
             </>
           )}
         </div>

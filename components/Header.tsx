@@ -1,4 +1,4 @@
-// components/Header.tsx (Updated - Fix navigation from blog with absolute links and router push)
+// components/Header.tsx (Updated - Fix fullHref concatenation for absolute paths; add reload if already on target page)
 'use client';
 
 import React, { useState } from 'react';
@@ -13,13 +13,35 @@ const Header: React.FC = () => {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setIsOpen(false); // Close mobile menu
-    const fullHref = isBlog ? `/${href}` : href; // Prefix '/' if on blog to redirect to main
-    router.push(fullHref); // Navigate
-    // After push, scroll to hash (use event for Lenis or native)
+
+    let fullHref = href;
+    if (href.startsWith('#')) {
+      // For hash links: Prefix with / if on blog to go to home#section
+      fullHref = isBlog ? `/#${href.slice(1)}` : href;
+    } else if (href.startsWith('/')) {
+      // For absolute paths like /blog: No extra prefix
+      fullHref = href;
+    }
+
+    // NEW: If already on the target page (ignore hash), force reload
+    const targetPath = fullHref.split('#')[0]; // e.g., / for home sections, /blog for blog
+    if (targetPath === pathname) {
+      window.location.reload(); // Refresh current page
+      return;
+    }
+
+    // If on blog and navigating to a homepage section (hash), force full reload
+    if (isBlog && href.startsWith('#')) {
+      window.location.href = fullHref; // e.g., '/#about' - browser reloads fully and handles hash scroll
+    } else {
+      router.push(fullHref); // Otherwise, client-side navigation
+    }
+
+    // Existing: Handle delayed scroll for hash (browser auto-handles on full reload, but keep for client-side)
     if (fullHref.includes('#')) {
       const hash = fullHref.split('#')[1];
       setTimeout(() => {
-        document.body.dispatchEvent(new CustomEvent('scrollToHash', { detail: { hash } })); // Trigger custom scroll
+        document.body.dispatchEvent(new CustomEvent('scrollToHash', { detail: { hash } }));
       }, 100); // Delay for page load
     }
   };

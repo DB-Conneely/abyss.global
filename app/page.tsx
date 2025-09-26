@@ -1,3 +1,4 @@
+// app/page.tsx (Updated - Add popstate listener to force reload on back/forward navigation)
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -25,6 +26,15 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 1500);
     return () => clearTimeout(timer);
+  }, []);
+
+  // NEW: Force full reload on back/forward navigation (popstate) to ensure fresh load with preloader
+  useEffect(() => {
+    const handlePopState = () => {
+      window.location.reload(); // Triggers fresh server-side load and preloader
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   // Lenis init

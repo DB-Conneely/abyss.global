@@ -1,4 +1,4 @@
-// components/Contact.tsx
+// components/Contact.tsx (Updated - Change email button text; keep mailto)
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -38,76 +38,79 @@ const Contact: React.FC = () => {
   return (
     <section className="section" id="contact">
       <h2 className="glow">Get in Contact</h2>
-      <p>Open to opportunities and discussions, anything from contract work to ideas, please feel free to get in contact.</p>
-      <p>Reach me below:</p>
-      <a href="mailto:dconneelybz@outlook.com" style={{ marginTop: '1rem', display: 'inline-block', color: 'var(--accent)' }}>dconneelybz@outlook.com</a>
-      <a href="https://t.me/sk3neels" style={{ marginTop: '1rem', display: 'inline-block', color: 'var(--accent)' }}>Telegram</a>
-      <a href="https://x.com/SK3Neels" style={{ marginTop: '1rem', display: 'inline-block', color: 'var(--accent)' }}>X (Twitter)</a>
-      
-      {/* Contact Form in Container */}
-      <div className="contact-container">
-        <form onSubmit={handleSubmit(onSubmit)} id="contact">
-          <h3 className="glow">Contact Form</h3>
-          <h4>Send us a message for a custom quote</h4>
-          <fieldset>
-            <input 
-              {...register('firstName', { required: true })}
-              placeholder="Your First Name (required)"
-              type="text"
-              className="input-purple"
-            />
-            {errors.firstName && <span className="text-red-500">Required</span>}
-          </fieldset>
-          <fieldset>
-            <input 
-              {...register('lastName', { required: true })}
-              placeholder="Your Last Name (required)"
-              type="text"
-              className="input-purple"
-            />
-            {errors.lastName && <span className="text-red-500">Required</span>}
-          </fieldset>
-          <fieldset>
-            <input 
-              {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
-              placeholder="Your Email Address (required)"
-              type="email"
-              className="input-purple"
-            />
-            {errors.email && <span className="text-red-500">Valid email required</span>}
-          </fieldset>
-          <fieldset>
-            <input 
-              {...register('subject', { required: true })}
-              placeholder="Subject (required)"
-              type="text"
-              className="input-purple"
-            />
-            {errors.subject && <span className="text-red-500">Required</span>}
-          </fieldset>
-          <fieldset>
-            <textarea 
-              {...register('message', { required: true })}
-              placeholder="Type your message here... (required)"
-              rows={6}
-              className="input-purple"
-            />
-            {errors.message && <span className="text-red-500">Required</span>}
-          </fieldset>
-          <fieldset>
-            <button 
-              type="submit"
-              className="submit-button"
-            >
-              Submit
-            </button>
-          </fieldset>
-          {status && (
-            <p style={{ color: status.includes('success') ? 'green' : 'red', textAlign: 'center', marginTop: '1rem' }}>
-              {status}
-            </p>
-          )}
-        </form>
+      <div className="contact-layout"> {/* NEW: Parent flex container for side-by-side */}
+        <div className="contact-info"> {/* NEW: Info column */}
+          <p>Open to opportunities and discussions, anything from contract work to ideas, please feel free to get in contact.</p>
+          <p>Reach me below:</p>
+          <a href="mailto:dconneelybz@outlook.com" className="submit-button">Email</a> {/* Updated: Text to 'Email'; keep mailto */}
+          <a href="https://t.me/sk3neels" className="submit-button">Telegram</a> {/* Updated: Use submit-button class */}
+          <a href="https://x.com/SK3Neels" className="submit-button">X (Twitter)</a> {/* Updated: Use submit-button class */}
+        </div>
+        {/* Contact Form in Container */}
+        <div className="contact-container"> {/* Existing form container */}
+          <form onSubmit={handleSubmit(onSubmit)} id="contact">
+            <h3 className="glow">Contact Form</h3>
+            <h4>Send us a message for a custom quote</h4>
+            <fieldset>
+              <input 
+                {...register('firstName', { required: true })}
+                placeholder="Your First Name (required)"
+                type="text"
+                className="input-purple"
+              />
+              {errors.firstName && <span className="text-red-500">Required</span>}
+            </fieldset>
+            <fieldset>
+              <input 
+                {...register('lastName', { required: true })}
+                placeholder="Your Last Name (required)"
+                type="text"
+                className="input-purple"
+              />
+              {errors.lastName && <span className="text-red-500">Required</span>}
+            </fieldset>
+            <fieldset>
+              <input 
+                {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+                placeholder="Your Email Address (required)"
+                type="email"
+                className="input-purple"
+              />
+              {errors.email && <span className="text-red-500">Valid email required</span>}
+            </fieldset>
+            <fieldset>
+              <input 
+                {...register('subject', { required: true })}
+                placeholder="Subject (required)"
+                type="text"
+                className="input-purple"
+              />
+              {errors.subject && <span className="text-red-500">Required</span>}
+            </fieldset>
+            <fieldset>
+              <textarea 
+                {...register('message', { required: true })}
+                placeholder="Type your message here... (required)"
+                rows={6}
+                className="input-purple"
+              />
+              {errors.message && <span className="text-red-500">Required</span>}
+            </fieldset>
+            <fieldset>
+              <button 
+                type="submit"
+                className="submit-button"
+              >
+                Submit
+              </button>
+            </fieldset>
+            {status && (
+              <p style={{ color: status.includes('success') ? 'green' : 'red', textAlign: 'center', marginTop: '1rem' }}>
+                {status}
+              </p>
+            )}
+          </form>
+        </div>
       </div>
     </section>
   );
