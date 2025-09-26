@@ -1,4 +1,17 @@
-/* Reset and base styles */
+/* styles/globals.css - Global stylesheet for the entire application.
+ * Imported in: app/layout.tsx via '../styles/globals.css'.
+ * Purpose: Defines resets, color tokens, typography, sections, animations, and component-specific styles.
+ * Note: This file is loaded globally; avoid component-scoped styles here—use inline or separate files for those.
+ */
+
+/* ------------------------------------ */
+/* Reset and Base Styles Section */
+/* ------------------------------------ */
+/* Resets default browser margins/padding for consistent layout across devices.
+ * Ensures box-sizing includes borders/padding in element dimensions.
+ * Applies base colors, fonts, and overflow behaviors to html/body.
+ * References: Used site-wide; prevents issues in components like Header.tsx and smooth-content scrolling.
+ */
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +27,13 @@ html, body {
   overscroll-behavior-x: none; /* Prevent horizontal overscroll triggering back/forward */
 }
 
-/* Color tokens */
+/* ------------------------------------ */
+/* Color Tokens Section */
+/* ------------------------------------ */
+/* Defines root variables for consistent theming (e.g., backgrounds, accents, glows).
+ * References: Used in typography, glow effects, and components like Project.tsx and Contact.tsx.
+ * Boosted opacities for visibility; purple palette aligns with space theme.
+ */
 :root {
   --background: #000000;
   --primary-purple: #6A1B9A;
@@ -24,7 +43,13 @@ html, body {
   --glow-purple: #9a4bc3; /* Matching purple for text glow */
 }
 
-/* Typography */
+/* ------------------------------------ */
+/* Typography Section */
+/* ------------------------------------ */
+/* Base styles for headings and paragraphs, ensuring consistent color and sizing.
+ * References: Applied to h1/h2/p in components like Hero.tsx, About.tsx, Project.tsx.
+ * Montserrat for paragraphs improves readability; bold weights for emphasis in futuristic theme.
+ */
 h1, h2, p {
   color: var(--text);
 }
@@ -49,7 +74,14 @@ p {
   font-family: var(--font-montserrat); /* Added for better readability */
 }
 
-/* Sections: Init hidden for reveals */
+/* ------------------------------------ */
+/* Sections and Reveals Section */
+/* ------------------------------------ */
+/* Styles for .section elements, handling layout, centering, and reveal animations.
+ * References: Used in components like Hero.tsx, About.tsx, Project.tsx, Contact.tsx, and now Blog page (app/blog/page.tsx).
+ * Initial opacity/transform for staggered reveals; transition for smooth entry.
+ * Hero-specific tweaks to offset header padding and ensure full viewport height.
+ */
 .section {
   position: relative;
   z-index: 1;
@@ -77,6 +109,14 @@ p {
   min-height: 100vh; /* Standard viewport height to maintain centering */
 }
 
+/* ------------------------------------ */
+/* Glow Effect Section */
+/* ------------------------------------ */
+/* Defines the glowing text effect with outline and pulsation.
+ * References: Applied to h1/h2 in Hero.tsx, Project.tsx, Contact.tsx, and Blog header.
+ * Uses text-shadow for multi-browser compatibility; animation for subtle pulse.
+ * WebKit-specific stroke for sharper outlines in Chrome/Safari.
+ */
 .glow {
   color: #ffffff; /* Darker purple fill for consistency */
   -webkit-text-stroke: 0.01px rgb(119, 0, 255); /* Thicker black outline for noticeability; WebKit/Chrome/Safari */
@@ -98,7 +138,13 @@ p {
   }
 }
 
-/* Button focus for a11y */
+/* ------------------------------------ */
+/* Accessibility and Media Queries Section */
+/* ------------------------------------ */
+/* Enhances accessibility (button focus) and handles reduced motion/motion preferences.
+ * Responsive adjustments for smaller screens.
+ * References: Global; affects all buttons (e.g., in Contact.tsx) and sections.
+ */
 button:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -116,7 +162,13 @@ button:focus {
   .section { padding: 2rem 1rem; }
 }
 
-/* Aura background */
+/* ------------------------------------ */
+/* Aura Background Section */
+/* ------------------------------------ */
+/* Creates fixed, blurred gradient auras for cosmic background effect.
+ * References: Defined in app/layout.tsx as .aura-layer with child .aura divs.
+ * Fixed position ensures it stays behind content; pointer-events none to avoid interaction.
+ */
 .aura-layer {
   position: fixed;
   top: 0;
@@ -161,7 +213,13 @@ button:focus {
   right: -10%;
 }
 
-/* Header styles */
+/* ------------------------------------ */
+/* Header Styles Section */
+/* ------------------------------------ */
+/* Layout and navigation for the fixed header.
+ * References: Used in components/Header.tsx for .header-layout, .navbar-nav, etc.
+ * Fixed positioning with transparency transition on scroll; mobile hamburger for responsive nav.
+ */
 .header-layout {
   display: flex;
   justify-content: space-between;
@@ -238,6 +296,14 @@ button:focus {
   }
 }
 
+/* ------------------------------------ */
+/* Project Container Section */
+/* ------------------------------------ */
+/* Styles for project cards, including layout, gradients, borders, and responsive stacking.
+ * References: Used in components/Project.tsx for .project-container and children.
+ * Translucent gradient bg with purple border; flex for internal row/column layout.
+ * Media query for mobile stacking.
+ */
 .project-container {
   background: linear-gradient(to bottom, rgba(63, 62, 62, 0.205), rgba(132, 0, 255, 0.402)); /* White translucent background with subtle fade; more see-through */
   padding: 3rem; /* Slightly reduced for less "stretched" feel vertically */
@@ -327,6 +393,14 @@ button:focus {
   }
 }
 
+/* ------------------------------------ */
+/* Contact Form Section */
+/* ------------------------------------ */
+/* Styles for the contact form container, titles, fieldsets, inputs, and button.
+ * References: Used in components/Contact.tsx for .contact-container, #contact h3/h4, fieldsets, .input-purple, .submit-button.
+ * Matched to template layout (stacked, square edges); purple theming with translucent bg.
+ * Includes autofill/focus overrides to prevent white backgrounds; media for mobile width.
+ */
 /* Contact Container (matched to template's #contact) */
 .contact-container {
   max-width: 600px; /* Extended width from 400px to 600px for less "skinny" feel */
@@ -457,5 +531,116 @@ textarea.input-purple:-webkit-autofill:not(:placeholder-shown) {
   .contact-container {
     padding: 25px; /* Keep same padding */
     max-width: 90%; /* Slightly wider on mobile for usability */
+  }
+}
+
+/* ------------------------------------ */
+/* Blog-Specific Styles Section */
+/* ------------------------------------ */
+/* Enhancements for blog list and single post pages:
+ * - Blog List (ClientBlog.tsx): Ensure each post's h2 header is centered (already via .project-container text-align: center; no change needed, but reinforced here for clarity).
+ * - Single Post (ClientPost.tsx): 
+ *   - Wrap content in a new .post-container (similar to .project-container for consistency: translucent gradient bg, purple border, black outlines).
+ *   - Header (h1): Centered with glow, added padding-bottom: 2rem for clear separation.
+ *   - Content (p): Left-aligned for readability, with max-width: 800px and auto margins to center the block on desktop (prevents full side-to-side reading). On mobile, it naturally fills the space.
+ *   - Overall: Formatted as a clean text block with line-height and margins for nice flow.
+ * - Media Query: On mobile (max-width: 768px), keep full-width for better touch UX, but maintain left-align.
+ * - Button: Positioned below content, centered or left-aligned to match text flow.
+ */
+/* Reuse .project-container for blog list posts (headers already centered via text-align: center) */
+
+/* New .post-container for single post consistency */
+.post-container {
+  background: linear-gradient(to bottom, rgba(63, 62, 62, 0.205), rgba(132, 0, 255, 0.402)); /* Match project gradient */
+  padding: 3rem; /* Internal padding */
+  border-radius: 15px;
+  width: 90%; /* Expand on desktop */
+  max-width: 1200px; /* Cap for wide screens */
+  margin: 0 auto; /* Center */
+  text-align: center; /* Center header */
+  border: 5px solid #8e0ae0; /* Match project border */
+  box-shadow:
+    0 0 0 3px black,
+    inset 0 0 0 3px black;
+}
+
+/* Single post header */
+.post-container h1 {
+  text-align: center; /* Explicit center */
+  padding-bottom: 2rem; /* Separation below header */
+  margin-bottom: 2rem; /* Extra space */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle divider for clarity (optional; remove if too much) */
+}
+
+/* Single post content */
+.post-container p {
+  text-align: left; /* Left-aligned for reading */
+  max-width: 800px; /* Limit width on desktop for comfortable line length */
+  margin: 0 auto 1.5rem; /* Center the block, add bottom margin */
+  line-height: 1.6; /* Good readability */
+  font-size: 1.2rem;
+  font-family: var(--font-montserrat);
+}
+
+/* Button positioning in single post */
+.post-container .submit-button {
+  display: block; /* Block for centering */
+  margin: 2rem auto 0; /* Center below content with top margin */
+  width: auto; /* Not full-width */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .post-container {
+    width: 100%; /* Full-width on mobile */
+    padding: 2rem;
+  }
+  .post-container p {
+    max-width: none; /* Fill space on mobile */
+  }
+}
+
+/* ------------------------------------ */
+/* Button Styles Section */
+/* ------------------------------------ */
+/* Updated styles for .submit-button to closely match project-container scheme: 
+ * - Gradient bg: Same gray-to-purple translucent linear-gradient as projects.
+ * - Border: 5px solid #8e0ae0 to match project purple (brighter for scheme alignment).
+ * - Outlines: Same 3px black inner/outer shadows.
+ * - Text: #ffffff white as per user update for better visibility.
+ * - Rounded: 15px to echo project-container's 15px (softer match).
+ * - Width: Auto by default for non-form buttons (e.g., blog links); full-width override in contact form via class if needed.
+ * - Hover: Boost gradient opacity slightly for feedback; subtle scale for interactivity (now more graceful with longer duration, ease-in-out, and reduced scale).
+ * - References: Applied to Contact.tsx (submit), ClientBlog.tsx ("Click to Read"), ClientPost.tsx ("Back to Blog").
+ */
+.submit-button {
+  cursor: pointer;
+  width: auto; /* Auto-width for flexibility; prevents full stretch in non-form contexts */
+  border: 3px solid #8e0ae0; /* Match project purple border */
+  border-radius: 15px; /* Rounded to match project-container's softer corners */
+  box-shadow:
+    0 0 0 2px black, /* Outside black outline */
+    inset 0 0 0 2px black; /* Inside black outline */
+  background: linear-gradient(to bottom, rgba(63, 62, 62, 0.205), rgba(132, 0, 255, 0.402)); /* Exact match to project gradient */
+  color: #ffffff; /* White text for scheme cohesion and readability */
+  margin: 0 0 5px;
+  padding: 10px 20px; /* Horizontal padding boost for better button shape; less stretched feel */
+  font-size: 15px;
+  text-align: center;
+  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out; /* Extended transform duration to 0.3s with ease-in-out for smoother, more graceful animation */
+}
+.submit-button:hover {
+  background: linear-gradient(to bottom, rgba(63, 62, 62, 0.305), rgba(132, 0, 255, 0.502)); /* Slightly boosted opacity for hover depth */
+  transform: scale(1.03); /* Reduced scale for subtler, less aggressive pop */
+}
+
+/* Form-specific override: Keep full-width in contact form for UX consistency */
+.contact-container .submit-button {
+  width: 100%; /* Full-width only in forms to match original template */
+}
+
+@media (max-width: 768px) {
+  .blog-posts-container {
+    grid-template-columns: 1fr; /* Stack on mobile */
   }
 }

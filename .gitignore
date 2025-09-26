@@ -4,3 +4,4 @@ context/
 generate_full.py
 .env.local
 .env
+generate_tree.sh

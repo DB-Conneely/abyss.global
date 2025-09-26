@@ -14,7 +14,7 @@ const Header: React.FC = () => {
         <a href="#about" className="nav-link" onClick={() => setIsOpen(false)}>About</a>
         <a href="#project-1" className="nav-link" onClick={() => setIsOpen(false)}>Projects</a>
         <a href="#contact" className="nav-link" onClick={() => setIsOpen(false)}>Contact</a>
-        <a href="#" onClick={() => { alert('TO DO'); setIsOpen(false); }} className="nav-link">Blog</a> {/* Alert for Blog */}
+        <a href="/blog" className="nav-link" onClick={() => setIsOpen(false)}>Blog</a>
       </nav>
       <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>☰</div> {/* Hamburger icon */}
     </header>
