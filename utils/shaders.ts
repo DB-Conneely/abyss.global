@@ -90,43 +90,57 @@ export class NebulaMaterial extends THREE.ShaderMaterial {
 }
 
 // Starfield: Normalized flicker, size attenuation
-export class StarfieldMaterial extends THREE.ShaderMaterial {
-  constructor(params: { time?: number; pointSize: number }) {
+export class CustomStarfieldMaterial extends THREE.ShaderMaterial { // Renamed to avoid conflicts
+  constructor(params: { time?: number; pointSize?: number } = {}) { // Optional params with defaults
     super({
       uniforms: {
         time: { value: params.time ?? 0 },
-        pointSize: { value: params.pointSize },
+        pointSize: { value: params.pointSize ?? 1.0 },
       },
       vertexShader: `
         uniform float time;
         uniform float pointSize;
         varying float vIntensity;
+        attribute vec3 starColor; // Per-star color attribute
+        varying vec3 vStarColor; // Pass to fragment
+        attribute float phase; // Per-star phase offset
+        varying float vPhase; // NEW: Varying for fragment
 
         void main() {
           vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
           gl_PointSize = pointSize * (300.0 / -mvPosition.z); // Attenuation
           gl_Position = projectionMatrix * mvPosition;
           float normPos = length(position) / 200.0; // Normalize for consistent flicker
-          vIntensity = sin(time * 2.0 + normPos * 10.0) * 0.5 + 0.5; // Slower, smoother
+          vIntensity = sin(time * 2.0 + normPos * 10.0 + phase) * 0.5 + 0.5; // Add phase for random timing
+          vStarColor = starColor; // Pass color
+          vPhase = phase; // NEW: Pass phase to fragment
         }
       `,
       fragmentShader: `
         varying float vIntensity;
         uniform float time;
-        uniform vec3 colorPalette[1]; // Purple tint
+        varying vec3 vStarColor; // Received per-star color
+        varying float vPhase; // NEW: Received phase
+
+        ${noiseGLSL} // Include noise for random variation
 
         void main() {
           vec2 uv = gl_PointCoord - 0.5;
           float dist = length(uv);
           if (dist > 0.5) discard;
-          float alpha = 1.0 - dist * 2.0;
-          float flicker = vIntensity * sin(time * 3.0) * 0.8 + 0.2; // Subtle
-          vec3 color = vec3(1.0, 0.8, 1.0) * 0.7 + vec3(0.4157, 0.1059, 0.6902) * 0.3; // Purple mix
-          gl_FragColor = vec4(color * flicker * alpha, alpha);
+          float randomNoise = noise(vec3(uv * 10.0, time * 0.1 + vPhase)); // Slow time, add vPhase for per-star random
+          float glowTrigger = step(0.99, randomNoise); // UPDATED: High threshold 0.99 for rare (1-2 stars) activation
+          float glowBoost = glowTrigger * smoothstep(1.0, 0.99, randomNoise) * 1.5; // Smooth ramp for gentle brighten, *1.5 max
+          float alpha = (1.0 - dist * 2.0) + glowBoost * 0.5; // UPDATED: Base alpha + glow extend (illusion of size/glow)
+          alpha = clamp(alpha, 0.0, 1.0); // Cap
+          float flicker = vIntensity * 0.2 + 0.9; // Subtle base twinkle
+          vec3 color = vStarColor * (flicker + glowBoost);
+          gl_FragColor = vec4(color, alpha);
         }
       `,
       transparent: true,
       blending: THREE.AdditiveBlending,
+      vertexColors: true, // Enable for per-vertex colors
     });
   }
 }

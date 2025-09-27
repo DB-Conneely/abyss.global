@@ -1,46 +1,42 @@
+// components/Scene.tsx (Full file with spinning custom stars)
 'use client';
 import React, { useRef, useEffect, useLayoutEffect, MutableRefObject } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Stars, OrbitControls, Environment, useGLTF } from '@react-three/drei';
-// import { EffectComposer, Bloom } from '@react-three/postprocessing'; // Comment out or remove this import
+import { OrbitControls, Environment, Stars, useGLTF } from '@react-three/drei'; // Stars back
 import * as THREE from 'three';
 import gsap from 'gsap';
 import Lenis from 'lenis';
 import * as animations from '@/utils/animations';
+import Starfield from '@/components/Starfield'; // Keep custom
+
 interface SceneProps {
   isMobile: boolean;
   scrollY: number;
   lenis?: Lenis | null;
 }
 const Scene: React.FC<SceneProps> = ({ isMobile, scrollY, lenis }) => {
-  // Replaced direct destructuring with selector pattern for type inference and performance
   const camera = useThree((state) => state.camera);
   const gl = useThree((state) => state.gl);
   const threeScene = useThree((state) => state.scene);
   const heroRef = useRef<THREE.Group>(null);
-  const starGroupRef = useRef<THREE.Group>(null);
-  const materialsRef = useRef<THREE.MeshStandardMaterial[]>([]); // Store materials for useFrame updates (replaces onBeforeRender)
-  // Load Earth globe model (point to the .gltf file; loader handles .bin and textures)
+  const starGroupRef = useRef<THREE.Group>(null); // For rotating both star layers
+  const materialsRef = useRef<THREE.MeshStandardMaterial[]>([]);
   const { scene: earthModel } = useGLTF('/models/earth/scene.gltf');
-  // Run hero open animation and auto-center/size the model
   useEffect(() => {
     if (heroRef.current && earthModel) {
-      console.log('Earth model loaded:', earthModel); // Debug: Check if model loads
-      // Add model to group first (before transforms)
       heroRef.current.add(earthModel);
-      // Traverse and convert spec/gloss materials to PBR + apply selective tints
       earthModel.traverse((child) => {
         if (child instanceof THREE.Mesh && child.userData.gltfExtensions?.KHR_materials_pbrSpecularGlossiness) {
           const ext = child.userData.gltfExtensions.KHR_materials_pbrSpecularGlossiness;
           const material = new THREE.MeshStandardMaterial({
-            map: ext.diffuseTexture ? ext.diffuseTexture : null, // Diffuse/color texture
-            normalMap: ext.normalTexture ? ext.normalTexture : null, // Bump details
-            emissiveMap: ext.diffuseTexture ? ext.diffuseTexture : null, // Glow sim
-            emissive: new THREE.Color(ext.diffuseFactor || 0x444444).multiplyScalar(0.1), // Subtle emissive base
-            roughness: 1 - (ext.glossinessFactor || 0), // Invert gloss to roughness
-            metalness: ext.specularFactor ? ext.specularFactor.length > 0 ? 0.5 : 0 : 0, // Metallic from specular
-            color: new THREE.Color(ext.diffuseFactor || 0xffffff), // Base color
-            transparent: false, // Disable transparency to remove glaze
+            map: ext.diffuseTexture ? ext.diffuseTexture : null,
+            normalMap: ext.normalTexture ? ext.normalTexture : null,
+            emissiveMap: ext.diffuseTexture ? ext.diffuseTexture : null,
+            emissive: new THREE.Color(ext.diffuseFactor || 0x444444).multiplyScalar(0.1),
+            roughness: 1 - (ext.glossinessFactor || 0),
+            metalness: ext.specularFactor ? ext.specularFactor.length > 0 ? 0.5 : 0 : 0,
+            color: new THREE.Color(ext.diffuseFactor || 0xffffff),
+            transparent: false,
             opacity: 1.0,
           });
           // Selective tints (HSL for targeted shifts)
@@ -145,7 +141,7 @@ const Scene: React.FC<SceneProps> = ({ isMobile, scrollY, lenis }) => {
   }, [camera, earthModel]);
   useLayoutEffect(() => {}, []); // Empty for now
   useFrame((state, delta) => {
-    if (starGroupRef.current) starGroupRef.current.rotation.y += delta * 0.05; // Rotation for stars
+    if (starGroupRef.current) starGroupRef.current.rotation.y += delta * 0.05; // Rotation for both star layers
     if (heroRef.current) {
       heroRef.current.rotation.y += delta * 0.05; // Synced rotation with stars
     }
@@ -170,7 +166,8 @@ const Scene: React.FC<SceneProps> = ({ isMobile, scrollY, lenis }) => {
       <Environment preset="sunset" /> {/* Sunset for brighter dusk */}
       <group ref={heroRef} position={[0, 0, 0]} /> {/* Starts at origin; auto-adjusted in useEffect */}
       <group ref={starGroupRef}>
-        <Stars radius={50} depth={30} count={2000} factor={4} saturation={0} fade />
+        <Stars radius={50} depth={30} count={2000} factor={4} saturation={0} fade /> {/* Original background */}
+        <Starfield /> {/* Custom foreground with tint */}
       </group>
       {/* Commented out OrbitControls to prevent any auto-rotation or interference with centering */}
       {/* {!isMobile && <OrbitControls enablePan={false} enableZoom={false} minPolarAngle={Math.PI / 3} maxPolarAngle={2 * Math.PI / 3} autoRotate autoRotateSpeed={0.5} />} */}
