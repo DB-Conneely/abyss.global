@@ -1,3 +1,4 @@
+// components/Preloader.tsx (Updated - Add image with glow, center text, one line)
 import React from 'react';
 
 const Preloader: React.FC = () => {
@@ -11,6 +12,7 @@ const Preloader: React.FC = () => {
         height: '100%',
         backgroundColor: 'var(--background)',
         display: 'flex',
+        flexDirection: 'column', // Stack image above text
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 1000,
@@ -19,7 +21,8 @@ const Preloader: React.FC = () => {
         transition: 'opacity 0.5s ease', // Basic CSS transition; GSAP overrides in utils
       }}
     >
-      <div className="glow">ENTERING THE ABYSS...</div> {/* Simple text with glow class from globals.css */}
+      <img src="/abyss-logo.png" alt="Abyss Logo" className="preloader-image glow" style={{ marginBottom: '0.5rem' }} /> {/* UPDATED: Reduced margin for "slightly above" */}
+      <div className="glow" style={{ whiteSpace: 'nowrap', textAlign: 'center' }}>ENTERING THE ABYSS...</div> {/* Center and nowrap */}
     </div>
   );
 };

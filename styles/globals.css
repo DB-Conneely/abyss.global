@@ -40,7 +40,7 @@ html, body {
   --accent: #9C27B0;
   --subtle-glow: rgba(208, 92, 227, 0.5); /* Boosted opacity */
   --text: #EDE7F6;
-  --glow-purple: #9a4bc3; /* Matching purple for text glow */
+  --glow-purple: #8e25bf; /* Matching purple for text glow */
 }
 
 /* ------------------------------------ */
@@ -758,4 +758,45 @@ textarea.input-purple:-webkit-autofill:not(:placeholder-shown) {
 
 .pagination .submit-button {
   width: auto; /* Button style from globals */
+}
+
+/* ------------------------------------ */
+/* Preloader Specific Styles */
+/* ------------------------------------ */
+.preloader-image {
+  width: 150px; /* Adjust size to taste; responsive */
+  height: auto;
+  animation: glow-pulse 2s ease-in-out infinite alternate; /* Expand/contract glow animation */
+  filter: drop-shadow(0 0 10px var(--glow-purple)); /* Base drop-shadow for initial glow */
+}
+
+@keyframes glow-pulse {
+  0% {
+    filter: drop-shadow(0 0 10px var(--glow-purple)) drop-shadow(0 0 20px var(--glow-purple)); /* Smaller glow */
+  }
+  100% {
+    filter: drop-shadow(0 0 30px var(--glow-purple)) drop-shadow(0 0 60px var(--glow-purple)); /* Larger, expanding glow */
+  }
+}
+
+/* ------------------------------------ */
+/* Hero and Preloader Text Tweaks */
+/* ------------------------------------ */
+.section#hero h1 {
+  white-space: nowrap; /* Ensure always on one line */
+}
+
+#preloader div { /* Target preloader text */
+  white-space: nowrap; /* One line */
+  text-align: center; /* Explicit center */
+}
+
+/* Mobile Media Query (ensure no stack on small screens) */
+@media (max-width: 768px) {
+  .section#hero h1 {
+    font-size: 3rem; /* Smaller but still nowrap; adjust if overflows */
+  }
+  .preloader-image {
+    width: 100px; /* Smaller on mobile */
+  }
 }
