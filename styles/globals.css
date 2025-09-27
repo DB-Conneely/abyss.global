@@ -366,14 +366,13 @@ button:focus {
   flex: none; /* Fixed size */
   display: flex;
   justify-content: center;
-  gap: 1rem; /* NEW: Increased gap between buttons (no pipes) for cleaner look */
+  gap: 1rem; /* Increased gap between buttons (no pipes) for cleaner look */
   margin-top: 1rem;
-  flex-wrap: wrap; /* NEW: Wrap if too many links */
+  flex-wrap: wrap; /* Wrap if too many links */
 }
 
 .project-footer a {
-  color: var(--accent);
-  text-decoration: none;
+  color: #ffffff !important; /* NEW: Explicit white override for project links (in case of old styles) */
 }
 
 @media (max-width: 768px) {
@@ -406,7 +405,7 @@ button:focus {
   width: 100%;
   margin: 3rem auto 0; /* Added 3rem top margin for padding between Twitter link and form */
   position: relative;
-  background: linear-gradient(to bottom, rgba(132, 0, 255, 0.402), rgba(63, 62, 62, 0.205)); /* Kept existing coloring */
+  background: linear-gradient(to bottom, rgba(63, 62, 62, 0.205), rgba(132, 0, 255, 0.402)); /* UPDATED: Match project/button gradient direction (gray top to purple bottom) */
   padding: 25px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24); /* Exact match to template */
   border: 2px solid #6A1B9A; /* Kept existing border for coloring */
@@ -622,25 +621,28 @@ textarea.input-purple:-webkit-autofill:not(:placeholder-shown) {
  */
 .submit-button {
   cursor: pointer;
-  width: auto; /* Auto-width for flexibility; prevents full stretch in non-form contexts */
-  border: 3px solid #8e0ae0; /* Match project purple border */
-  border-radius: 15px; /* Rounded to match project-container's softer corners */
+  width: auto; /* Auto-width for flexibility */
+  border: 3px solid #8e0ae0;
+  border-radius: 15px;
   box-shadow:
-    0 0 0 2px black, /* Outside black outline */
-    inset 0 0 0 2px black; /* Inside black outline */
-  background: linear-gradient(to bottom, rgba(63, 62, 62, 0.205), rgba(132, 0, 255, 0.402)); /* Exact match to project gradient */
-  color: #ffffff; /* White text for scheme cohesion and readability */
-  margin: 0 0 5px;
-  padding: 10px 20px; /* Horizontal padding boost for better button shape; less stretched feel */
+    0 0 0 2px black,
+    inset 0 0 0 2px black;
+  background: linear-gradient(to bottom, rgba(63, 62, 62, 0.205), rgba(132, 0, 255, 0.402));
+  color: #ffffff !important; /* UPDATED: !important to override any inherited accents (e.g., from old project-footer a) */
+  margin: 0;
+  padding: 10px 20px;
   font-size: 15px;
   text-align: center;
-  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out; /* Extended transform duration to 0.3s with ease-in-out for smoother, more graceful animation */
-  display: inline-block; /* NEW: Inline-block for link-like flow in paragraphs/lists */
-  text-decoration: none; /* NEW: Remove underline for button-like appearance */
+  transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+  display: inline-block;
+  text-decoration: none;
+  font-family: var(--font-michroma); /* NEW: Explicit Michroma for consistent futuristic button font */
+  font-weight: bold; /* NEW: Bold for emphasis, matching headings */
+  text-transform: uppercase; /* NEW: Uppercase for button-like feel */
 }
 .submit-button:hover {
-  background: linear-gradient(to bottom, rgba(63, 62, 62, 0.305), rgba(132, 0, 255, 0.502)); /* Slightly boosted opacity for hover depth */
-  transform: scale(1.03); /* Reduced scale for subtler, less aggressive pop */
+  background: linear-gradient(to bottom, rgba(63, 62, 62, 0.305), rgba(132, 0, 255, 0.502));
+  transform: scale(1.03);
 }
 
 /* Form-specific override */
