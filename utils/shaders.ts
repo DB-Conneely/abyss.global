@@ -1,11 +1,10 @@
+// utils/shaders.ts (Updated - Comment out NebulaMaterial and SoftParticleMaterial; keep CustomStarfieldMaterial)
 import * as THREE from 'three';
-
 // Improved 3D noise (classic value noise for smoother FBM)
 const noiseGLSL = `
   vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
-
   float noise(vec3 p) {
     vec3 a = floor(p + 0.5);
     vec3 s = a - dot(p - 0.5, vec3(1.0));
@@ -13,7 +12,6 @@ const noiseGLSL = `
     vec3 u = x * x * (3.0 - 2.0 * x);
     return mix(mix(mix(dot(s - 1.0, x - 1.0) + 1.0, dot(s, x), u.x), mix(dot(s + 1.0 - 1.0, x + 1.0 - 1.0) + 1.0, dot(s + 1.0, x + 1.0), u.x), u.y), mix(mix(dot(s - 1.0 + 1.0, x - 1.0 + 1.0) + 1.0, dot(s + 1.0 - 1.0, x + 1.0 - 1.0) + 1.0, u.x), mix(dot(s + 1.0, x + 1.0), dot(s + 1.0 + 1.0, x + 1.0 + 1.0) + 1.0, u.x), u.y), u.z);
   }
-
   float fbm(vec3 p, int octaves, float scale) {
     float value = 0.0;
     float amplitude = 0.5;
@@ -27,33 +25,24 @@ const noiseGLSL = `
     return value * scale;
   }
 `;
-
-// Nebula: Tuned density, purple gradient enforcement
+// Comment out NebulaMaterial (scrapped for now)
+/*
 export class NebulaMaterial extends THREE.ShaderMaterial {
-  constructor(params: {
-    time?: number;
-    resolution: THREE.Vector2;
-    cameraPos: THREE.Vector3;
-    noiseScale: number;
-    colorPalette: number[]; // Flat RGB array for GLSL
-  }) {
-    const palette = new Float32Array(params.colorPalette); // [r1,g1,b1, r2,g2,b2, r3,g3,b3]
+  constructor() { // Parameterless with defaults
     super({
       uniforms: {
-        time: { value: params.time ?? 0 },
-        resolution: { value: params.resolution },
-        cameraPos: { value: params.cameraPos },
-        noiseScale: { value: params.noiseScale },
-        colorPalette: { value: palette },
+        time: { value: 0 },
+        resolution: { value: new THREE.Vector2() },
+        cameraPos: { value: new THREE.Vector3() },
+        noiseScale: { value: 1.0 },
+        colorPalette: { value: new Float32Array([0,0,0, 0,0,0, 0,0,0]) }, // Default black palette (3 vec3)
       },
       vertexShader: `
         varying vec2 vUv;
         uniform float time;
         uniform vec3 cameraPos;
         uniform float noiseScale;
-
         ${noiseGLSL}
-
         void main() {
           vUv = uv;
           vec3 pos = position;
@@ -69,26 +58,25 @@ export class NebulaMaterial extends THREE.ShaderMaterial {
         uniform vec3 cameraPos;
         uniform float noiseScale;
         uniform vec3 colorPalette[3]; // Access as array
-
         ${noiseGLSL}
-
         void main() {
           vec2 uv = (vUv - 0.5) * 2.0 + 0.5; // Normalized
           vec3 coord = vec3(uv * 3.0, time * 0.005); // Slower, wider
-          float density = fbm(coord + cameraPos * 0.1, 3, noiseScale) * 1.2; // Boost density
+          float density = fbm(coord + cameraPos * 0.1, 3, noiseScale) * 2.0; // Boost density *2 for visibility
           vec3 color = mix(colorPalette[0], colorPalette[1], smoothstep(0.0, 1.0, density));
-          color = mix(color, colorPalette[2], smoothstep(0.5, 1.0, density)); // Purple undertone
-          float alpha = clamp(density, 0.0, 0.9); // Higher alpha
+          color = mix(color, colorPalette[2], smoothstep(0.3, 1.0, density)); // Lower threshold for more purple
+          float alpha = clamp(density * 1.5, 0.0, 1.0); // Boost alpha *1.5, cap at 1
           gl_FragColor = vec4(color, alpha);
         }
       `,
       transparent: true,
       side: THREE.DoubleSide,
       depthWrite: false,
+      blending: THREE.AdditiveBlending, // NEW: Additive for glowing effect, like stars
     });
   }
 }
-
+*/
 // Starfield: Normalized flicker, size attenuation
 export class CustomStarfieldMaterial extends THREE.ShaderMaterial { // Renamed to avoid conflicts
   constructor(params: { time?: number; pointSize?: number } = {}) { // Optional params with defaults
@@ -105,7 +93,6 @@ export class CustomStarfieldMaterial extends THREE.ShaderMaterial { // Renamed t
         varying vec3 vStarColor; // Pass to fragment
         attribute float phase; // Per-star phase offset
         varying float vPhase; // NEW: Varying for fragment
-
         void main() {
           vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
           gl_PointSize = pointSize * (300.0 / -mvPosition.z); // Attenuation
@@ -121,9 +108,7 @@ export class CustomStarfieldMaterial extends THREE.ShaderMaterial { // Renamed t
         uniform float time;
         varying vec3 vStarColor; // Received per-star color
         varying float vPhase; // NEW: Received phase
-
         ${noiseGLSL} // Include noise for random variation
-
         void main() {
           vec2 uv = gl_PointCoord - 0.5;
           float dist = length(uv);
@@ -144,22 +129,22 @@ export class CustomStarfieldMaterial extends THREE.ShaderMaterial { // Renamed t
     });
   }
 }
-
-// Soft Particle: Real depth from composer
+// Comment out SoftParticleMaterial (scrapped for now)
+/*
 export class SoftParticleMaterial extends THREE.ShaderMaterial {
-  constructor(params: { depthTexture: THREE.Texture; softness?: number }) {
+  constructor() { // Parameterless with defaults
     super({
       uniforms: {
         time: { value: 0 },
         cameraPos: { value: new THREE.Vector3() },
-        depthTexture: { value: params.depthTexture },
-        softness: { value: params.softness ?? 0.1 },
+        depthTexture: { value: null }, // Will be set via prop
+        softness: { value: 0.1 },
+        resolution: { value: new THREE.Vector2() }, // NEW: Add resolution uniform
       },
       vertexShader: `
         varying vec2 vUv;
         varying vec3 vPosition;
         varying float vDepth;
-
         void main() {
           vUv = uv;
           vec3 pos = position;
@@ -177,7 +162,8 @@ export class SoftParticleMaterial extends THREE.ShaderMaterial {
         uniform sampler2D depthTexture;
         uniform vec3 cameraPos;
         uniform float softness;
-
+        uniform vec2 resolution; // NEW: Used in screenUv
+        uniform float time; // NEW: Add missing uniform declaration
         void main() {
           vec2 screenUv = (gl_FragCoord.xy / resolution.xy);
           float sceneDepth = texture2D(depthTexture, screenUv).r;
@@ -194,3 +180,4 @@ export class SoftParticleMaterial extends THREE.ShaderMaterial {
     });
   }
 }
+*/

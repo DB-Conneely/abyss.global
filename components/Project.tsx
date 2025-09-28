@@ -1,6 +1,5 @@
-// components/Project.tsx (Updated - Remove pipe separators from footer links)
+// components/Project.tsx (Updated - Add videoId prop; render iframe with wrapper below image; no other changes)
 import React from 'react';
-
 // Define the props the component expects
 interface ProjectProps {
   title: string;
@@ -8,9 +7,9 @@ interface ProjectProps {
   imageUrl?: string; // Optional single image
   links?: { label: string; url: string }[]; // Optional array for multiple links
   index: number; // To identify the project for events/animations
+  videoId?: string; // NEW: Optional YouTube video ID for embed
 }
-
-const Project: React.FC<ProjectProps> = ({ title, description, imageUrl = "/abyss-logo.png", links = [], index }) => {
+const Project: React.FC<ProjectProps> = ({ title, description, imageUrl = "/abyss-logo.png", links = [], index, videoId }) => {
   return (
     <section className="section" id={`project-${index}`}>
       <div className="project-container"> {/* New translucent container */}
@@ -20,6 +19,19 @@ const Project: React.FC<ProjectProps> = ({ title, description, imageUrl = "/abys
         <div className="project-body"> {/* New row for horizontal split */}
           <div className="project-images"> {/* Left 1/3: Single centered image */}
             <img src={imageUrl} alt="Project Image" className="project-image" />
+            {videoId && ( // NEW: Conditional embed below image
+              <div className="video-wrapper"> {/* Wrapper for 16:9 aspect */}
+                <iframe
+                  className="project-video"
+                  src={`https://www.youtube.com/embed/${videoId}?rel=0`}
+                  title={`${title} Video Demo`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy" // Lazy load for perf
+                />
+              </div>
+            )}
           </div>
           <div className="project-text"> {/* Right 2/3: Informational text */}
           {description.split('\n').map((line, idx) => (
@@ -44,5 +56,4 @@ const Project: React.FC<ProjectProps> = ({ title, description, imageUrl = "/abys
     </section>
   );
 };
-
 export default Project;

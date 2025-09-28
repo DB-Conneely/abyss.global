@@ -1,6 +1,5 @@
-// components/Preloader.tsx (Updated - Add image with glow, center text, one line)
+// components/Preloader.tsx (Updated - Remove .glow class from image; use new animation via .preloader-image)
 import React from 'react';
-
 const Preloader: React.FC = () => {
   return (
     <div
@@ -21,10 +20,9 @@ const Preloader: React.FC = () => {
         transition: 'opacity 0.5s ease', // Basic CSS transition; GSAP overrides in utils
       }}
     >
-      <img src="/abyss-logo.png" alt="Abyss Logo" className="preloader-image glow" style={{ marginBottom: '0.5rem' }} /> {/* UPDATED: Reduced margin for "slightly above" */}
-      <div className="glow" style={{ whiteSpace: 'nowrap', textAlign: 'center' }}>ENTERING THE ABYSS...</div> {/* Center and nowrap */}
+      <img src="/abyss-logo.png" alt="Abyss Logo" className="preloader-image" style={{ marginBottom: '0.5rem' }} /> {/* Remove glow class; use new image-specific */}
+      <div className="glow" style={{ textAlign: 'center' }}>ENTERING THE ABYSS...</div> {/* Remove nowrap to allow wrap */}
     </div>
   );
 };
-
 export default Preloader;

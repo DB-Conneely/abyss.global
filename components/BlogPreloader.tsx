@@ -1,6 +1,5 @@
-// components/BlogPreloader.tsx (New File - Similar to Preloader, themed for blog)
+// components/BlogPreloader.tsx (Updated - Add style to center and allow wrap if needed)
 import React from 'react';
-
 const BlogPreloader: React.FC = () => {
   return (
     <div
@@ -20,9 +19,8 @@ const BlogPreloader: React.FC = () => {
         transition: 'opacity 0.5s ease', // Smooth fade out
       }}
     >
-      <div className="glow">ENTERING THE VOID...</div> {/* Themed text with glow */}
+      <div className="glow" style={{ textAlign: 'center' }}>ENTERING THE VOID...</div> {/* Add style to center; implicit wrap */}
     </div>
   );
 };
-
 export default BlogPreloader;
