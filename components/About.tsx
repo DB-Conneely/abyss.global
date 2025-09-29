@@ -1,5 +1,6 @@
 // components/About.tsx
 import React from "react";
+import Link from "next/link"; // NEW: Import for navigation
 
 const About: React.FC = () => {
   return (
@@ -7,8 +8,8 @@ const About: React.FC = () => {
       <h2 className="glow">About Abyss</h2>
       <p>
         Welcome to my digital space. This site serves as a real-time portfolio
-        of my development journey, which began in June 2024 with a simple &apos;Hello
-        World&apos;.
+        of my development journey, which began in June 2024 with a simple
+        &apos;Hello World&apos;.
       </p>
 
       <p>
@@ -28,6 +29,16 @@ const About: React.FC = () => {
         philosophy, I invite you to explore the blog section - this will be
         updated sporadically with updates which may vary widely in quality :).
       </p>
+
+      <Link
+        href="/blog"
+        className="submit-button"
+        style={{ marginTop: "1rem" }}
+      >
+        {" "}
+        {/* NEW: Button with margin for spacing */}
+        Check the Blog!
+      </Link>
     </section>
   );
 };

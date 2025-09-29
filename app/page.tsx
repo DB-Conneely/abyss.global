@@ -14,7 +14,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  // The scrollY state has been removed.
   const containerRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
@@ -53,7 +53,7 @@ export default function Home() {
     };
     requestAnimationFrame(raf);
     const handleLenis = () => {
-      setScrollY(lenisRef.current?.scroll || 0);
+      // The setScrollY call has been removed.
     };
     lenisRef.current?.on("scroll", handleLenis);
     // Resize for height changes

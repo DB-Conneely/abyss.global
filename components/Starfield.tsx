@@ -12,7 +12,7 @@ interface CustomStarfieldMaterialProps {
   ref?: React.Ref<CustomStarfieldMaterial>;
   attach?: string;
   pointSize?: number;
-  [key: string]: any;
+  [key: string]: unknown; // <-- Changed 'any' to 'unknown'
 }
 
 const Starfield: React.FC = () => {
@@ -70,7 +70,9 @@ const Starfield: React.FC = () => {
 };
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
+    // <-- The comment now correctly targets this line
     interface IntrinsicElements {
       customStarfieldMaterial: CustomStarfieldMaterialProps;
     }

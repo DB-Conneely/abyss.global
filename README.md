@@ -1,90 +1,66 @@
-# Spacey Landing Page
+# Abyss Global
 
-An interactive single-page landing page with a "floating through the universe" theme, featuring a 3D futuristic purple energy core with orbiting asteroid fragments that "opens up" the page on load. Built with Next.js, React Three Fiber, GSAP, and Lenis for smooth scrolling and animations. Focuses on high-quality visuals with performance optimizations.
+## Description
+An interactive 3D landing page with a space theme, built as a personal portfolio to showcase development projects, a blog, and contact functionality. The site features immersive 3D visuals using React Three Fiber, smooth scrolling with Lenis, and backend integration with Supabase for dynamic blog posts and EmailJS for form submissions. This project demonstrates full-stack capabilities, AI integration in workflows, and modern web engineering.
 
-## Setup
+The site is currently in final preparation for deployment via Vercel. It has 0 linted errors (via ESLint with strict Next.js config), is fully formatted with Prettier, and has been stress-tested locally for performance, responsiveness, and functionality.
 
-1. Ensure Node.js >=18 is installed.
-2. Clone the repository and navigate to the project directory.
-3. Install dependencies:
+## Features
+- **Preloader**: Custom loader with glowing logo and text for a smooth initial load.
+- **3D Scene**: Rotating Earth model with purple tints, custom-written shaders for starfield effects (flicker, glow, noise-based variation), and auras for a cosmic background.
+- **Sections**:
+  - Hero: Introductory glow text.
+  - About: Personal background and development philosophy, with a "Check the Blog!" button.
+  - Projects: Three showcased projects with images, embedded YouTube demos (for applicable ones), descriptions, and links.
+  - Contact: Form with validation, EmailJS integration, and direct links (Email, Telegram, X).
+- **Blog**: Dynamic posts from Supabase, with pagination (3 posts/page for testing; adjustable), individual post views with timestamps, and back navigation.
+- **Responsive Design**: Mobile-friendly layouts, hamburger menu, and adaptive 3D rendering.
+- **Animations**: GSAP-powered reveals and bursts; reduced motion support.
+- **SEO/Metadata**: OpenGraph tags for social sharing.
+- **Footer**: Copyright and 3D model credits.
 
-```bash
-  npm install
-```
+## Tech Stack
+- **Framework**: Next.js 14 (App Router)
+- **Frontend**: React 18, TypeScript 5
+- **3D/Graphics**: Three.js 0.160 (with custom shaders for enhanced starfields), React Three Fiber, @react-three/drei
+- **Animations/Scrolling**: GSAP 3.12, Lenis 1.0
+- **Backend/DB**: Supabase 2.58 (for blog posts)
+- **Forms/Email**: React Hook Form 7.63, EmailJS 4.4
+- **Styling**: CSS (globals with variables, media queries)
+- **Dev Tools**: ESLint 8.57 (strict config, 0 errors), Prettier 3.3, ts-node for scripts
+- **Other**: xAI tools for planning/assistance during development
 
-This will pull in packages like Next.js, @react-three/fiber, GSAP, and Lenis as defined in `package.json`.
+## Installation/Setup
+1. Clone the repo: `git clone <repo-url>`
+2. Install dependencies: `npm install`
+3. Set up environment variables in `.env.local` (see below).
+4. Run locally: `npm run dev` (opens at http://localhost:3000)
+5. Lint/Format: `npm run lint` and `npm run format`
+6. Build: `npm run build` (for production)
 
-## Running the Project
+### Environment Variables
+Copy to `.env.local`:
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+EMAILJS_SERVICE_ID=your-emailjs-service-id
+EMAILJS_TEMPLATE_ID=your-emailjs-template-id
+EMAILJS_USER_ID=your-emailjs-user-id
+EMAILJS_PRIVATE_KEY=your-emailjs-private-key
 
-- For development mode (with hot reloading):
+- Supabase: For blog posts (create "posts" table with columns: id, title, description, content, slug, created_at).
+- EmailJS: For contact form submissions.
 
-```bash
-  npm run dev
-```
+## Deployment
+- **Platform**: Vercel (automated CI/CD with GitHub integration).
+- Steps:
+  1. Push to GitHub (main branch for prod).
+  2. Import repo in Vercel dashboard.
+  3. Add env vars in Vercel settings.
+  4. Set custom domain (abyss.global) with DNS (A record: 76.76.21.21; CNAME for www).
+- Status: Ready for deploy—clean build, no errors. Post-deploy, test Supabase integration live.
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+## Credits/License
+- 3D Models: "Earth" by denis_cliofas & "space boi" by silvercrow101 (CC Attribution via Sketchfab).
+- License: MIT (feel free to fork/use, but credit original).
 
-- For production build:
-
-```bash
-  npm run build
-```
-
-Then start the server:
-
-```bash
-  npm run start
-```
-
-- Lint the code:
-
-```bash
-  npm run lint
-```
-
-- Format the code:
-
-```bash
-  npm run format
-```
-
-## Asset Swaps
-
-Assets are stored in `/public` for static serving:
-
-- **3D Models**: Place .glb files (with Draco compression) in `/public/models/`. Example: Replace `hero-core.glb` with your custom model.
-- Update the import in `/components/Scene.tsx`: Change `useGLTF('/models/hero-core.glb')` to your new path.
-
-- **Textures**: Use KTX2 format in `/public/textures/`. Example: Swap `nebula_ktx2.ktx2`.
-- Update in `Scene.tsx` via `useTexture`.
-
-- **HDRIs**: For environments, place .hdr files in `/public/hdr/`. Example: `space_env.hdr`.
-- Update in `Scene.tsx` Environment component.
-
-When swapping, ensure formats follow the asset pipeline: .glb with tangents/UVs/LODs, compressed textures under 2048x2048.
-
-## Customization
-
-- **Color Palette**: Edit tokens in `/styles/globals.css` (e.g., `--primary-purple: #6A1B9A;`). These apply globally, including to shaders.
-
-- **Text/Content**: Replace placeholders in components:
-- `/components/Hero.tsx`: Update `<h1>Explore the Universe</h1>` and subtitle.
-- `/components/Features.tsx`: Change feature blocks (e.g., "Feature 1: Nebula Views").
-- `/components/CTA.tsx`: Modify "Get Started" button text/action.
-- Add real copy or links as needed.
-
-- **Animations/Shaders**: Tweak GSAP timelines in `/utils/animations.ts` (e.g., heroOpen duration). Adjust shader uniforms in `/utils/shaders.ts` for effects like nebula noiseScale.
-
-- **Mobile Fallbacks**: Test on devices; edit `Scene.tsx` for more reductions (e.g., particle count).
-
-- **Extensions**: Add physics with `@react-three/rapier` (install and import in `Scene.tsx` for heavier asteroid sim).
-
-## Troubleshooting
-
-- **Performance Issues**: If FPS drops, reduce asteroidCount in `Scene.tsx` or disable postprocessing on mobile. Use Chrome DevTools profiler.
-- **Asset Loading Errors**: Ensure files are in `/public` and paths match imports. Check console for 404s.
-- **Scroll Jank**: Verify Lenis setup in `page.tsx`; fallback to native if needed.
-- **Shader Compilation Fails**: Confirm GLSL syntax; test in isolation.
-- **Build Errors**: Run `npm run lint` and fix TypeScript issues.
-
-For more details, refer to the project plan or contact the developer.
+For questions, contact via the site or GitHub issues. Built solo in 2025.

@@ -2,9 +2,12 @@
 "use client";
 import React, { useRef, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls as OrbitControlsComponent, useGLTF } from "@react-three/drei";
+import {
+  OrbitControls as OrbitControlsComponent,
+  useGLTF,
+} from "@react-three/drei";
 import * as THREE from "three";
-import type { OrbitControls } from 'three-stdlib'; // UPDATED: Correct type import from three-stdlib
+import type { OrbitControls } from "three-stdlib"; // UPDATED: Correct type import from three-stdlib
 
 interface BlogSceneProps {
   isMobile: boolean;

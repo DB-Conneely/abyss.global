@@ -33,7 +33,9 @@ const Project: React.FC<ProjectProps> = ({
           <div className="project-images">
             {" "}
             {/* Left 1/3: Single centered image */}
-            <div className="project-image-wrapper"> {/* NEW: Wrapper for isolated fill */}
+            <div className="project-image-wrapper">
+              {" "}
+              {/* NEW: Wrapper for isolated fill */}
               <Image
                 src={imageUrl}
                 alt="Project Image"

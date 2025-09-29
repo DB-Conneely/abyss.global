@@ -4,12 +4,11 @@ import React, { useRef, useEffect, useLayoutEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Environment, Stars, useGLTF } from "@react-three/drei"; // Stars back
 import * as THREE from "three";
-import Lenis from "lenis";
 import * as animations from "@/utils/animations";
 import Starfield from "@/components/Starfield"; // Keep custom
 
-interface SceneProps {} // UPDATED: Remove unused props (isMobile, scrollY, lenis)
-const Scene: React.FC<SceneProps> = () => { // UPDATED: No destructured props
+// The empty SceneProps interface has been removed.
+const Scene: React.FC = () => {
   const camera = useThree((state) => state.camera);
   const heroRef = useRef<THREE.Group>(null);
   const starGroupRef = useRef<THREE.Group>(null); // For rotating both star layers
