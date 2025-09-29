@@ -1,11 +1,13 @@
 # Abyss Global
 
 ## Description
+
 An interactive 3D landing page with a space theme, built as a personal portfolio to showcase development projects, a blog, and contact functionality. The site features immersive 3D visuals using React Three Fiber, smooth scrolling with Lenis, and backend integration with Supabase for dynamic blog posts and EmailJS for form submissions. This project demonstrates full-stack capabilities, AI integration in workflows, and modern web engineering.
 
 The site is currently in final preparation for deployment via Vercel. It has 0 linted errors (via ESLint with strict Next.js config), is fully formatted with Prettier, and has been stress-tested locally for performance, responsiveness, and functionality.
 
 ## Features
+
 - **Preloader**: Custom loader with glowing logo and text for a smooth initial load.
 - **3D Scene**: Rotating Earth model with purple tints, custom-written shaders for starfield effects (flicker, glow, noise-based variation), and auras for a cosmic background.
 - **Sections**:
@@ -20,6 +22,7 @@ The site is currently in final preparation for deployment via Vercel. It has 0 l
 - **Footer**: Copyright and 3D model credits.
 
 ## Tech Stack
+
 - **Framework**: Next.js 14 (App Router)
 - **Frontend**: React 18, TypeScript 5
 - **3D/Graphics**: Three.js 0.160 (with custom shaders for enhanced starfields), React Three Fiber, @react-three/drei
@@ -31,6 +34,7 @@ The site is currently in final preparation for deployment via Vercel. It has 0 l
 - **Other**: xAI tools for planning/assistance during development
 
 ## Installation/Setup
+
 1. Clone the repo: `git clone <repo-url>`
 2. Install dependencies: `npm install`
 3. Set up environment variables in `.env.local` (see below).
@@ -39,6 +43,7 @@ The site is currently in final preparation for deployment via Vercel. It has 0 l
 6. Build: `npm run build` (for production)
 
 ### Environment Variables
+
 Copy to `.env.local`:
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
@@ -51,6 +56,7 @@ EMAILJS_PRIVATE_KEY=your-emailjs-private-key
 - EmailJS: For contact form submissions.
 
 ## Deployment
+
 - **Platform**: Vercel (automated CI/CD with GitHub integration).
 - Steps:
   1. Push to GitHub (main branch for prod).
@@ -60,6 +66,7 @@ EMAILJS_PRIVATE_KEY=your-emailjs-private-key
 - Status: Ready for deploy—clean build, no errors. Post-deploy, test Supabase integration live.
 
 ## Credits/License
+
 - 3D Models: "Earth" by denis_cliofas & "space boi" by silvercrow101 (CC Attribution via Sketchfab).
 - License: MIT (feel free to fork/use, but credit original).
 

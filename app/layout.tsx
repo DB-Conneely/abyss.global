@@ -1,15 +1,14 @@
+// app/layout.tsx (Updated - Change title to 'Abyss Global')
 import type { Metadata } from "next";
-import { Michroma, Montserrat } from "next/font/google"; // Added Montserrat import
-
-import "../styles/globals.css"; // Import global styles with color tokens and resets
-import Header from "@/components/Header"; // Import the client-side Header
+import { Michroma, Montserrat } from "next/font/google";
+import "../styles/globals.css";
+import Header from "@/components/Header";
 
 const michroma = Michroma({
   subsets: ["latin"],
   variable: "--font-michroma",
-  weight: ["400"], // Regular weight, but bold via CSS for effective/simple
+  weight: ["400"],
 });
-
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
@@ -17,12 +16,12 @@ const montserrat = Montserrat({
 
 // Metadata for SEO
 export const metadata: Metadata = {
-  title: "Spacey Landing Page",
+  title: "Abyss Global", // UPDATED: New tab title
   description: "An interactive journey through the universe with 3D visuals.",
   openGraph: {
-    title: "Spacey Landing Page",
+    title: "Abyss Global", // UPDATED: Match for social shares
     description: "Explore cosmic wonders in this immersive web experience.",
-    images: "/og-image.png", // Placeholder for OG image; add actual file in /public if needed
+    images: "/og-image.png",
   },
 };
 
@@ -34,24 +33,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Viewport for responsive design */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Favicon placeholder */}
         <link rel="icon" href="/abyss-logo.png" />
         <link rel="apple-touch-icon" href="/abyss-logo.png" sizes="180x180" />
       </head>
       <body
         className={`${michroma.variable} ${montserrat.variable} antialiased`}
       >
-        {" "}
-        {/* Added montserrat.variable */}
         <div className="aura-layer">
           <div className="aura light-blue"></div>
           <div className="aura dark-blue"></div>
           <div className="aura deep-purple"></div>
           <div className="aura pink"></div>
         </div>
-        <Header /> {/* Use the client-side Header component */}
+        <Header />
         {children}
       </body>
     </html>
