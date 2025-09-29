@@ -12,6 +12,7 @@ import About from "@/components/About";
 import Project from "@/components/Project";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import * as animations from "@/utils/animations"; // NEW: Import for initHashScroll
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   // The scrollY state has been removed.
@@ -57,6 +58,7 @@ export default function Home() {
       // The setScrollY call has been removed.
     };
     lenisRef.current?.on("scroll", handleLenis);
+    animations.initHashScroll(lenisRef.current); // NEW: Init hash scroll listener with Lenis
     // Resize for height changes
     const handleResize = () => {
       lenisRef.current?.resize();
