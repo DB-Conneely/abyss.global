@@ -9,10 +9,7 @@ import {
 import * as THREE from "three";
 import type { OrbitControls } from "three-stdlib"; // UPDATED: Correct type import from three-stdlib
 useGLTF.preload("/models/space-boi.glb"); // NEW: Preload the model to minimize any load hitch
-interface BlogSceneProps {
-  isMobile: boolean;
-}
-const BlogScene: React.FC<BlogSceneProps> = ({ isMobile }) => {
+const BlogScene: React.FC = () => { // UPDATED: Remove empty interface; use React.FC with no props
   const groupRef = useRef<THREE.Group>(null);
   const controlsRef = useRef<OrbitControls | null>(null); // Use imported instance type
   const { scene: spaceBoi } = useGLTF("/models/space-boi.glb");

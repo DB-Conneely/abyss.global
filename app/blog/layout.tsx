@@ -56,7 +56,7 @@ export default function BlogLayout({
             height: "100%",
           }}
         >
-          <BlogScene isMobile={isMobile} />
+          <BlogScene /> {/* UPDATED: Remove isMobile={isMobile} prop (unused in component) */}
         </Canvas>
       </div>
       <main
