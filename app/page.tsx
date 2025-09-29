@@ -131,9 +131,13 @@ export default function Home() {
         <Project
           index={1}
           title="IntuAItive"
-          description={`IntuAItive is a full-stack SaaS application that transforms audio from meetings, lectures, podcasts, and recordings into actionable insights. Leveraging advanced AI for transcription and summarization, it processes YouTube URLs, uploaded MP4/M4A files, or live recordings—delivering sentiment analysis, overviews, customizable bullet summaries, and full transcripts. With support for real-time transcription and tailored tones (e.g., Business, Student, Custom), it streamlines productivity for professionals, students, and creators in dynamic environments.
- 
-          This project showcases expertise in AI integration, real-time systems, secure authentication, and scalable full-stack development, making it an ideal demonstration of modern web engineering and machine learning applications. As well as systems architecture and Engineering to deliver this application end to end SOLO. Make sure to check out the video demo to see it in action!`}
+          description={`IntuAItive is a full-stack SaaS application designed to solve a common inefficiency: the manual process of note-taking from audio. Inspired by the need to automate tedious administrative tasks, this platform transforms audio from meetings, lectures, and recordings into structured, actionable intelligence.
+
+          It handles diverse audio sources, including YouTube URLs, file uploads, and live recordings and leverages AI for highly accurate transcription and summarization. A standout feature is the customizable "Tones" system, which allows users to tailor the summary's focus for different professional contexts, such as business, sales, or academic use, demonstrating a deep understanding of user-centric design and prompt engineering.
+
+          This project is a testament to a modern, AI-augmented workflow, showcasing the ability to rapidly design, develop, and deploy a complex, end-to-end application. It effectively demonstrates full-stack capabilities, sophisticated AI integration, and a seamless user experience from input to insight.
+          
+          Currently, project is not publicly deployed - but was built with deployment in mind. Please see the GitHub repo for full details and a comprehensive video demo.`}
           imageUrl="/waverob.png" // Unique images per project
           videoId="vsZa6hAXyZ4" // NEW: Add videoId for embed
           links={[
@@ -143,11 +147,13 @@ export default function Home() {
         <Project
           index={2}
           title="Flash Solana"
-          description={`Flash is a Telegram trading bot built on the solana ecosystem. The sole focus was to direct my current solana knowledge into a fun and useful project that could be used by others. The bot allows users to connect their solana wallet or generate a fresh wallet and execute trades via simple and beginner friendly commands/buttons in telegram. Users can also tracks their portfolio, adjust slippage and other such trading features.
+          description={`Flash is a fully deployed Telegram trading bot for the Solana ecosystem, architected and built end-to-end from a user-first perspective. The goal was to abstract away the complexities of native DEX trading and create an intuitive, entry-level tool for beginners.
+
+          Operating entirely within Telegram, the bot allows users to securely connect an existing wallet or generate a new one. Trades are executed seamlessly through a simple command and button interface, integrating with the Jupiter DEX API for reliable swaps. Users can also track their portfolio and adjust key trading parameters like slippage.
+
+          The tech stack includes TypeScript, MongoDB for data persistence, Redis for high-speed state management, and the Solana web3.js library. A commitment to reliability is demonstrated through a suite of 61 passing Jest tests. The entire application is Dockerized and deployed, showcasing the ability to deliver and maintain a live, production-ready MVP. This project serves as a strong foundation for future Web3 ventures.
          
-          Flash is built using Typescript, MongoDB and of course the Solana web3.js library - Winston-based logging for debugging, errors, and transactions, Redis for state management, locks, and security, 61 passing Jest tests ensure reliability, Dockerized and configured for Fly.io deployment.
-         
-          Please see the video demo to see it in action, or try it out yourself via the link below!`}
+          Please watch video demo to see it in action, or try it out yourself via the link below!`}
           imageUrl="/flash.png" // Different images later
           videoId="iJOtwT8uimE" // NEW: Add videoId for embed
           links={[
@@ -158,9 +164,11 @@ export default function Home() {
         <Project
           index={3}
           title="Current Projects"
-          description={`Please check back soon for updates on my latest projects! I'm continually working on new and exciting developments that I'll be sharing here.
-           
-          I am Currently working on a few new ideas mostly around AI integration and automation, experimenting with n8n chatbots, no code tools and automated Agents. An example currently is the cli-auto tool, its in very early stages but its an auto development loop utilising prompt and context engineering to generate, test and refine code all from the command line. More to come on this soon!`}
+          description={`My current focus is on exploring the frontiers of AI integration and developer automation. I'm actively experimenting with new ideas, including workflow tools like n8n and building autonomous agents.
+
+          A key project in development is cli-auto, an experimental AI agent designed to automate the entire initial phase of software development. It takes high-level user requirements through a simple questionnaire, then uses an AI-driven chain of thought to generate a complete project vision, a detailed development roadmap, and the entire initial codebase structure. From there, it's designed to enter an autonomous loop of writing and refining code based on the generated plan.
+
+          These projects are a reflection of my passion for rapid experimentation and leveraging AI to enhance development workflows. My main goal in this field is to just keep building tools that are exciting and/or useful to me and in turn improve on my ability to produce better quality solutions. You can follow their progress and see my latest ideas taking shape on my GitHub profile.`}
           imageUrl="/abyss-logo.png" // Different images later
           links={[
             { label: "GitHub Profile", url: "https://github.com/DB-Conneely" }, // Removed Video Demo

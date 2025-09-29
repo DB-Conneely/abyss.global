@@ -5,9 +5,11 @@ const About: React.FC = () => {
   return (
     <section className="section" id="about">
       <h2 className="glow">About Abyss</h2>
-      <p>Firstly, Thank you for taking the time to visit my personal site! I purchased this domain as I thought it would be a great way to experiment with my development and it helped that it was a great clean domain to pick up, but it occured to me the ambiguity of the name created an open ended creative direction to allow me to build in a theme that matched the name. As simple as that, the theme of space and the vast unknown abyss that it is gave me a theme to work around.</p>
+      <p>Welcome to my digital space. This site serves as a real-time portfolio of my development journey, which began in June 2024 with a simple 'Hello World'.</p>
       
-      <p>On top of this, I feel its a great centralised place to show off my evolving development abilities in other projects as well as hopefully allow an impressive experience as a whole. Also - please feel free to check out the 'blog section' - I will update this over time, its more of a personal yet public thought diary that I intend to add upon throughout my personal and professional life. Quality may vary :)</p>
+      <p>My approach to building software is a partnership. I act as the director and architect, leveraging AI as a development partner to execute a clear vision. This modern, augmented workflow allows me to accelerate what was previously only possible with years of traditional experience, enabling rapid experimentation and the creation of complex, end-to-end applications.</p>
+
+      <p>All projects showcased here are solo endeavors, born from a drive to build tools that are exciting and useful. Each one is a step forward in refining my ability to design and deliver high-quality solutions. For a more in-depth look into my thoughts, experiments, and development philosophy, I invite you to explore the blog section - this will be updated sporadically with updates which may vary widely in quality :).</p>
     </section>
   );
 };

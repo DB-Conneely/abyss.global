@@ -1,4 +1,5 @@
-// components/Contact.tsx (Updated - Change email button text; keep mailto)
+// components/Contact.tsx (Updated)
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -52,52 +53,57 @@ const Contact: React.FC = () => {
             <h3 className="glow">Contact Form</h3>
             <h4>Send us a message for a custom quote</h4>
             <fieldset>
-              <input 
+              <input
                 {...register('firstName', { required: true })}
                 placeholder="Your First Name (required)"
                 type="text"
                 className="input-purple"
+                autoComplete="given-name"
               />
               {errors.firstName && <span className="text-red-500">Required</span>}
             </fieldset>
             <fieldset>
-              <input 
+              <input
                 {...register('lastName', { required: true })}
                 placeholder="Your Last Name (required)"
                 type="text"
                 className="input-purple"
+                autoComplete="family-name"
               />
               {errors.lastName && <span className="text-red-500">Required</span>}
             </fieldset>
             <fieldset>
-              <input 
+              <input
                 {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
                 placeholder="Your Email Address (required)"
                 type="email"
                 className="input-purple"
+                autoComplete="email"
               />
               {errors.email && <span className="text-red-500">Valid email required</span>}
             </fieldset>
             <fieldset>
-              <input 
+              <input
                 {...register('subject', { required: true })}
                 placeholder="Subject (required)"
                 type="text"
                 className="input-purple"
+                autoComplete="off"
               />
               {errors.subject && <span className="text-red-500">Required</span>}
             </fieldset>
             <fieldset>
-              <textarea 
+              <textarea
                 {...register('message', { required: true })}
                 placeholder="Type your message here... (required)"
                 rows={6}
                 className="input-purple"
+                autoComplete="off"
               />
               {errors.message && <span className="text-red-500">Required</span>}
             </fieldset>
             <fieldset>
-              <button 
+              <button
                 type="submit"
                 className="submit-button"
               >
