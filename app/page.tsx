@@ -45,6 +45,7 @@ export default function Home() {
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       lerp: 0.1,
       touchMultiplier: 2,
+      syncTouch: true,
       infinite: false,
     });
     const raf = (time: number) => {
@@ -156,7 +157,7 @@ export default function Home() {
       <main
         ref={mainRef}
         id="smooth-content"
-        style={{ position: "relative", zIndex: 1, overflowY: "auto" }}
+        style={{ position: "relative", zIndex: 1 }}
       >
         <Hero />
         <About />
@@ -165,11 +166,9 @@ export default function Home() {
           index={1}
           title="IntuAItive"
           description={`IntuAItive is a full-stack SaaS application designed to solve a common inefficiency: the manual process of note-taking from audio. Inspired by the need to automate tedious administrative tasks, this platform transforms audio from meetings, lectures, and recordings into structured, actionable intelligence.
-
           It handles diverse audio sources, including YouTube URLs, file uploads, and live recordings and leverages AI for highly accurate transcription and summarization. A standout feature is the customizable "Tones" system, which allows users to tailor the summary's focus for different professional contexts, such as business, sales, or academic use, demonstrating a deep understanding of user-centric design and prompt engineering.
-
           This project is a testament to a modern, AI-augmented workflow, showcasing the ability to rapidly design, develop, and deploy a complex, end-to-end application. It effectively demonstrates full-stack capabilities, sophisticated AI integration, and a seamless user experience from input to insight.
-          
+         
           Currently, project is not publicly deployed - but was built with deployment in mind. Please see the GitHub repo for full details and a comprehensive video demo.`}
           imageUrl="/waverob.png" // Unique images per project
           videoId="vsZa6hAXyZ4" // NEW: Add videoId for embed
@@ -184,11 +183,9 @@ export default function Home() {
           index={2}
           title="Flash Solana"
           description={`Flash is a fully deployed Telegram trading bot for the Solana ecosystem, architected and built end-to-end from a user-first perspective. The goal was to abstract away the complexities of native DEX trading and create an intuitive, entry-level tool for beginners.
-
           Operating entirely within Telegram, the bot allows users to securely connect an existing wallet or generate a new one. Trades are executed seamlessly through a simple command and button interface, integrating with the Jupiter DEX API for reliable swaps. Users can also track their portfolio and adjust key trading parameters like slippage.
-
           The tech stack includes TypeScript, MongoDB for data persistence, Redis for high-speed state management, and the Solana web3.js library. A commitment to reliability is demonstrated through a suite of 61 passing Jest tests. The entire application is Dockerized and deployed, showcasing the ability to deliver and maintain a live, production-ready MVP. This project serves as a strong foundation for future Web3 ventures.
-         
+        
           Please watch video demo to see it in action, or try it out yourself via the link below!`}
           imageUrl="/flash.png" // Different images later
           videoId="iJOtwT8uimE" // NEW: Add videoId for embed
@@ -204,9 +201,7 @@ export default function Home() {
           index={3}
           title="Current Projects"
           description={`My current focus is on exploring the frontiers of AI integration and developer automation. I'm actively experimenting with new ideas, including workflow tools like n8n and building autonomous agents.
-
           A key project in development is cli-auto, an experimental AI agent designed to automate the entire initial phase of software development. It takes high-level user requirements through a simple questionnaire, then uses an AI-driven chain of thought to generate a complete project vision, a detailed development roadmap, and the entire initial codebase structure. From there, it's designed to enter an autonomous loop of writing and refining code based on the generated plan.
-
           These projects are a reflection of my passion for rapid experimentation and leveraging AI to enhance development workflows. My main goal in this field is to just keep building tools that are exciting and/or useful to me and in turn improve on my ability to produce better quality solutions. You can follow their progress and see my latest ideas taking shape on my GitHub profile.`}
           imageUrl="/abyss-logo.png" // Different images later
           links={[
