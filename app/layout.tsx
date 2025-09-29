@@ -1,28 +1,28 @@
-import type { Metadata } from 'next';
-import { Michroma, Montserrat } from 'next/font/google'; // Added Montserrat import
+import type { Metadata } from "next";
+import { Michroma, Montserrat } from "next/font/google"; // Added Montserrat import
 
-import '../styles/globals.css'; // Import global styles with color tokens and resets
-import Header from '@/components/Header'; // Import the client-side Header
+import "../styles/globals.css"; // Import global styles with color tokens and resets
+import Header from "@/components/Header"; // Import the client-side Header
 
 const michroma = Michroma({
-  subsets: ['latin'],
-  variable: '--font-michroma',
-  weight: ['400'], // Regular weight, but bold via CSS for effective/simple
+  subsets: ["latin"],
+  variable: "--font-michroma",
+  weight: ["400"], // Regular weight, but bold via CSS for effective/simple
 });
 
 const montserrat = Montserrat({
-  subsets: ['latin'],
-  variable: '--font-montserrat',
+  subsets: ["latin"],
+  variable: "--font-montserrat",
 });
 
 // Metadata for SEO
 export const metadata: Metadata = {
-  title: 'Spacey Landing Page',
-  description: 'An interactive journey through the universe with 3D visuals.',
+  title: "Spacey Landing Page",
+  description: "An interactive journey through the universe with 3D visuals.",
   openGraph: {
-    title: 'Spacey Landing Page',
-    description: 'Explore cosmic wonders in this immersive web experience.',
-    images: '/og-image.png', // Placeholder for OG image; add actual file in /public if needed
+    title: "Spacey Landing Page",
+    description: "Explore cosmic wonders in this immersive web experience.",
+    images: "/og-image.png", // Placeholder for OG image; add actual file in /public if needed
   },
 };
 
@@ -40,7 +40,11 @@ export default function RootLayout({
         <link rel="icon" href="/abyss-logo.png" />
         <link rel="apple-touch-icon" href="/abyss-logo.png" sizes="180x180" />
       </head>
-      <body className={`${michroma.variable} ${montserrat.variable} antialiased`}> {/* Added montserrat.variable */}
+      <body
+        className={`${michroma.variable} ${montserrat.variable} antialiased`}
+      >
+        {" "}
+        {/* Added montserrat.variable */}
         <div className="aura-layer">
           <div className="aura light-blue"></div>
           <div className="aura dark-blue"></div>

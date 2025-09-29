@@ -1,5 +1,5 @@
 // utils/shaders.ts (Updated - Comment out NebulaMaterial and SoftParticleMaterial; keep CustomStarfieldMaterial)
-import * as THREE from 'three';
+import * as THREE from "three";
 // Improved 3D noise (classic value noise for smoother FBM)
 const noiseGLSL = `
   vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -78,8 +78,10 @@ export class NebulaMaterial extends THREE.ShaderMaterial {
 }
 */
 // Starfield: Normalized flicker, size attenuation
-export class CustomStarfieldMaterial extends THREE.ShaderMaterial { // Renamed to avoid conflicts
-  constructor(params: { time?: number; pointSize?: number } = {}) { // Optional params with defaults
+export class CustomStarfieldMaterial extends THREE.ShaderMaterial {
+  // Renamed to avoid conflicts
+  constructor(params: { time?: number; pointSize?: number } = {}) {
+    // Optional params with defaults
     super({
       uniforms: {
         time: { value: params.time ?? 0 },

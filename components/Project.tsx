@@ -1,5 +1,5 @@
 // components/Project.tsx (Updated - Add videoId prop; render iframe with wrapper below image; no other changes)
-import React from 'react';
+import React from "react";
 // Define the props the component expects
 interface ProjectProps {
   title: string;
@@ -9,18 +9,33 @@ interface ProjectProps {
   index: number; // To identify the project for events/animations
   videoId?: string; // NEW: Optional YouTube video ID for embed
 }
-const Project: React.FC<ProjectProps> = ({ title, description, imageUrl = "/abyss-logo.png", links = [], index, videoId }) => {
+const Project: React.FC<ProjectProps> = ({
+  title,
+  description,
+  imageUrl = "/abyss-logo.png",
+  links = [],
+  index,
+  videoId,
+}) => {
   return (
     <section className="section" id={`project-${index}`}>
-      <div className="project-container"> {/* New translucent container */}
+      <div className="project-container">
+        {" "}
+        {/* New translucent container */}
         <div className="project-header">
           <h2 className="glow">{title}</h2>
         </div>
-        <div className="project-body"> {/* New row for horizontal split */}
-          <div className="project-images"> {/* Left 1/3: Single centered image */}
+        <div className="project-body">
+          {" "}
+          {/* New row for horizontal split */}
+          <div className="project-images">
+            {" "}
+            {/* Left 1/3: Single centered image */}
             <img src={imageUrl} alt="Project Image" className="project-image" />
             {videoId && ( // NEW: Conditional embed below image
-              <div className="video-wrapper"> {/* Wrapper for 16:9 aspect */}
+              <div className="video-wrapper">
+                {" "}
+                {/* Wrapper for 16:9 aspect */}
                 <iframe
                   className="project-video"
                   src={`https://www.youtube.com/embed/${videoId}?rel=0`}
@@ -33,22 +48,57 @@ const Project: React.FC<ProjectProps> = ({ title, description, imageUrl = "/abys
               </div>
             )}
           </div>
-          <div className="project-text"> {/* Right 2/3: Informational text */}
-          {description.split('\n').map((line, idx) => (
-            <p key={idx}>{line.trim()}</p> // Each \n becomes new <p> with margin
-          ))}
+          <div className="project-text">
+            {" "}
+            {/* Right 2/3: Informational text */}
+            {description.split("\n").map((line, idx) => (
+              <p key={idx}>{line.trim()}</p> // Each \n becomes new <p> with margin
+            ))}
+          </div>
         </div>
-        </div>
-        <div className="project-footer"> {/* Bottom footer with links separated by ' | ' */}
-          {links.length > 0 ? links.map((link, idx) => (
-            <React.Fragment key={idx}>
-              <a href={link.url} target="_blank" rel="noopener noreferrer" className="submit-button">{link.label}</a> {/* Updated: Use submit-button class */}
-            </React.Fragment>
-          )) : (
+        <div className="project-footer">
+          {" "}
+          {/* Bottom footer with links separated by ' | ' */}
+          {links.length > 0 ? (
+            links.map((link, idx) => (
+              <React.Fragment key={idx}>
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="submit-button"
+                >
+                  {link.label}
+                </a>{" "}
+                {/* Updated: Use submit-button class */}
+              </React.Fragment>
+            ))
+          ) : (
             <>
-              <a href="#video" target="_blank" rel="noopener noreferrer" className="submit-button">Video Demo</a>
-              <a href="#repo" target="_blank" rel="noopener noreferrer" className="submit-button">GitHub Repo</a>
-              <a href="#docs" target="_blank" rel="noopener noreferrer" className="submit-button">Docs</a>
+              <a
+                href="#video"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="submit-button"
+              >
+                Video Demo
+              </a>
+              <a
+                href="#repo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="submit-button"
+              >
+                GitHub Repo
+              </a>
+              <a
+                href="#docs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="submit-button"
+              >
+                Docs
+              </a>
             </>
           )}
         </div>

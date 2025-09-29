@@ -1,10 +1,10 @@
 // components/Starfield.tsx (Full with renamed attribute)
-'use client';
+"use client";
 
-import React, { useRef, useMemo } from 'react';
-import { useFrame, extend } from '@react-three/fiber';
-import * as THREE from 'three';
-import { CustomStarfieldMaterial } from '@/utils/shaders';
+import React, { useRef, useMemo } from "react";
+import { useFrame, extend } from "@react-three/fiber";
+import * as THREE from "three";
+import { CustomStarfieldMaterial } from "@/utils/shaders";
 
 extend({ CustomStarfieldMaterial });
 
@@ -42,7 +42,7 @@ const Starfield: React.FC = () => {
     return [
       new THREE.BufferAttribute(pos, 3),
       new THREE.BufferAttribute(col, 3),
-      new THREE.BufferAttribute(pha, 1)
+      new THREE.BufferAttribute(pha, 1),
     ];
   }, []);
 
@@ -56,10 +56,15 @@ const Starfield: React.FC = () => {
     <points>
       <bufferGeometry attach="geometry">
         <bufferAttribute attach="attributes-position" {...positions} />
-        <bufferAttribute attach="attributes-starColor" {...colors} /> {/* Renamed to avoid conflict */}
+        <bufferAttribute attach="attributes-starColor" {...colors} />{" "}
+        {/* Renamed to avoid conflict */}
         <bufferAttribute attach="attributes-phase" {...phases} />
       </bufferGeometry>
-      <customStarfieldMaterial ref={materialRef} attach="material" pointSize={1.5} />
+      <customStarfieldMaterial
+        ref={materialRef}
+        attach="material"
+        pointSize={1.5}
+      />
     </points>
   );
 };

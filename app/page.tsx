@@ -1,17 +1,17 @@
 // app/page.tsx (Updated - Add videoId to Projects 1/2; remove Video Demo from all links; no other changes)
-'use client';
-import React, { useEffect, useRef, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { Preload } from '@react-three/drei';
-import Lenis from 'lenis';
-import gsap from 'gsap';
-import Preloader from '@/components/Preloader';
-import Scene from '@/components/Scene';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Project from '@/components/Project';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Preload } from "@react-three/drei";
+import Lenis from "lenis";
+import gsap from "gsap";
+import Preloader from "@/components/Preloader";
+import Scene from "@/components/Scene";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Project from "@/components/Project";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [scrollY, setScrollY] = useState(0);
@@ -28,13 +28,15 @@ export default function Home() {
     const handlePopState = () => {
       window.location.reload(); // Triggers fresh server-side load and preloader
     };
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
   }, []);
   // Lenis init
   useEffect(() => {
     if (!containerRef.current) return;
-    const contentEl = containerRef.current.querySelector('#smooth-content') as HTMLElement;
+    const contentEl = containerRef.current.querySelector(
+      "#smooth-content",
+    ) as HTMLElement;
     if (!contentEl) return;
     lenisRef.current = new Lenis({
       wrapper: containerRef.current,
@@ -53,36 +55,43 @@ export default function Home() {
     const handleLenis = (e: any) => {
       setScrollY(lenisRef.current?.scroll || 0);
     };
-    lenisRef.current?.on('scroll', handleLenis);
+    lenisRef.current?.on("scroll", handleLenis);
     // Resize for height changes
     const handleResize = () => {
       lenisRef.current?.resize();
       updateMainHeight();
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      lenisRef.current?.off('scroll', handleLenis);
+      lenisRef.current?.off("scroll", handleLenis);
       lenisRef.current?.destroy();
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
   // Setup IntersectionObserver-based reveals after load
   useEffect(() => {
     if (isLoaded) {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const sections = document.querySelectorAll('.section:not(#hero)');
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const sections = document.querySelectorAll(".section:not(#hero)");
       const observerOptions = {
         root: null,
-        rootMargin: '0px',
+        rootMargin: "0px",
         threshold: 0.1, // Trigger when 10% of section is visible
       };
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
           if (entry.isIntersecting) {
             const section = entry.target as HTMLElement;
-            section.classList.add('visible'); // Add class for CSS transition
-            gsap.to(section, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }); // Optional GSAP for finer control
-            document.body.dispatchEvent(new CustomEvent('sectionBurst', { detail: { index } }));
+            section.classList.add("visible"); // Add class for CSS transition
+            gsap.to(section, {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "power3.out",
+            }); // Optional GSAP for finer control
+            document.body.dispatchEvent(
+              new CustomEvent("sectionBurst", { detail: { index } }),
+            );
             observer.unobserve(section); // Once only
           }
         });
@@ -109,22 +118,50 @@ export default function Home() {
       updateMainHeight();
     }
   }, [isLoaded]);
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   return (
-    <div ref={containerRef} id="smooth-wrapper" style={{ height: '100%', overflow: 'hidden' }}>
+    <div
+      ref={containerRef}
+      id="smooth-wrapper"
+      style={{ height: "100%", overflow: "hidden" }}
+    >
       {!isLoaded && <Preloader />}
-      <div id="canvas-container" style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
+      <div
+        id="canvas-container"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+        }}
+      >
         <Canvas
           camera={{ position: [0, 0, 5], fov: 75 }}
           gl={{ antialias: !isMobile, alpha: true }}
-          style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+          }}
         >
-          <Scene isMobile={isMobile} scrollY={scrollY} lenis={lenisRef.current} />
+          <Scene
+            isMobile={isMobile}
+            scrollY={scrollY}
+            lenis={lenisRef.current}
+          />
           <Preload all />
         </Canvas>
       </div>
       {/* Main content area - Removed explicit minHeight and paddingBottom; using dynamic calculation */}
-      <main ref={mainRef} id="smooth-content" style={{ position: 'relative', zIndex: 1, overflowY: 'auto' }}>
+      <main
+        ref={mainRef}
+        id="smooth-content"
+        style={{ position: "relative", zIndex: 1, overflowY: "auto" }}
+      >
         <Hero />
         <About />
         {/* Project instances with unique data */}
@@ -141,7 +178,10 @@ export default function Home() {
           imageUrl="/waverob.png" // Unique images per project
           videoId="vsZa6hAXyZ4" // NEW: Add videoId for embed
           links={[
-            { label: "GitHub Repo", url: "https://github.com/DB-Conneely/AISummary-Project" }, // Removed Video Demo
+            {
+              label: "GitHub Repo",
+              url: "https://github.com/DB-Conneely/AISummary-Project",
+            }, // Removed Video Demo
           ]}
         />
         <Project
@@ -157,8 +197,11 @@ export default function Home() {
           imageUrl="/flash.png" // Different images later
           videoId="iJOtwT8uimE" // NEW: Add videoId for embed
           links={[
-            { label: "GitHub Repo", url: "https://github.com/DB-Conneely/flash-sol" }, // Removed Video Demo
-            { label: "WHY NOT TRY!", url: "https://t.me/flashsol_bot" }
+            {
+              label: "GitHub Repo",
+              url: "https://github.com/DB-Conneely/flash-sol",
+            }, // Removed Video Demo
+            { label: "WHY NOT TRY!", url: "https://t.me/flashsol_bot" },
           ]}
         />
         <Project

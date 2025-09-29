@@ -1,5 +1,5 @@
 // components/Hero.tsx
-import React from 'react';
+import React from "react";
 
 const Hero: React.FC = () => {
   // The animation is now handled by the heroOpen function in utils/animations.ts
