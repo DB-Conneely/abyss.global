@@ -1,8 +1,14 @@
 // components/About.tsx
+"use client"; // NEW: Add for client-side dispatchEvent
 import React from "react";
 import Link from "next/link"; // NEW: Import for navigation
 
 const About: React.FC = () => {
+  const handleScrollToContact = () => {
+    document.body.dispatchEvent(
+      new CustomEvent("scrollToHash", { detail: { hash: "contact" } }),
+    );
+  };
   return (
     <section className="section" id="about">
       <h2 className="glow">About Abyss</h2>
@@ -27,18 +33,22 @@ const About: React.FC = () => {
         refining my ability to design and deliver high-quality solutions. For a
         more in-depth look into my thoughts, experiments, and development
         philosophy, I invite you to explore the blog section - this will be
-        updated sporadically with updates which may vary widely in quality :).
+        updated sporadically dependent on when I have something to discuss.
       </p>
-
-      <Link
-        href="/blog"
-        className="submit-button"
-        style={{ marginTop: "1rem" }}
-      >
-        {" "}
-        {/* NEW: Button with margin for spacing */}
-        Check the Blog!
-      </Link>
+      <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "1rem" }}> {/* NEW: Flex wrapper for side-by-side buttons */}
+        <Link
+          href="/blog"
+          className="submit-button"
+        >
+          Check the Blog!
+        </Link>
+        <button
+          onClick={handleScrollToContact} // NEW: Dispatch for smooth scroll to #contact
+          className="work-button"
+        >
+          Work With Me 🤝
+        </button>
+      </div>
     </section>
   );
 };
