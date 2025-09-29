@@ -355,7 +355,7 @@ button:focus {
     /* Outside black outline—adjust 3px for thickness */ inset 0 0 0 3px black; /* Inside black outline—adjust 3px for thickness */
   display: flex;
   flex-direction: column; /* Vertical stacking for header/body/footer */
-  height: 100%; /* Fill section height if needed */
+  /* height: 100%; <-- REMOVED: This was causing unnecessary vertical stretching to parent height */
 }
 .project-header {
   flex: none; /* Fixed size */

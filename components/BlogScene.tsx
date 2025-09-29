@@ -8,7 +8,7 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import type { OrbitControls } from "three-stdlib"; // UPDATED: Correct type import from three-stdlib
-
+useGLTF.preload("/models/space-boi.glb"); // NEW: Preload the model to minimize any load hitch
 interface BlogSceneProps {
   isMobile: boolean;
 }
@@ -77,17 +77,15 @@ const BlogScene: React.FC<BlogSceneProps> = ({ isMobile }) => {
       <pointLight position={[10, 10, 10]} intensity={1.8} color="#DDA0DD" />
       <directionalLight position={[0, 10, 5]} intensity={1.2} color="#ffffff" />
       <group ref={groupRef} />
-      {!isMobile && (
-        <OrbitControlsComponent
-          ref={controlsRef}
-          enablePan={false}
-          enableZoom={false}
-          minPolarAngle={Math.PI / 3}
-          maxPolarAngle={(2 * Math.PI) / 3}
-          autoRotate={true}
-          autoRotateSpeed={2}
-        />
-      )}
+      <OrbitControlsComponent // UPDATED: Remove !isMobile check to enable rotation on mobile
+        ref={controlsRef}
+        enablePan={false}
+        enableZoom={false}
+        minPolarAngle={Math.PI / 3}
+        maxPolarAngle={(2 * Math.PI) / 3}
+        autoRotate={true}
+        autoRotateSpeed={2}
+      />
     </>
   );
 };
