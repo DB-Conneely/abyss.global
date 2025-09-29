@@ -33,7 +33,7 @@ const Contact: React.FC = () => {
       } else {
         setStatus("Failed to send message. Please try again.");
       }
-    } catch (error) {
+    } catch {
       setStatus("Failed to send message. Please try again.");
     }
   };

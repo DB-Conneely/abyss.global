@@ -52,7 +52,7 @@ export default function Home() {
       requestAnimationFrame(raf);
     };
     requestAnimationFrame(raf);
-    const handleLenis = (e: any) => {
+    const handleLenis = () => {
       setScrollY(lenisRef.current?.scroll || 0);
     };
     lenisRef.current?.on("scroll", handleLenis);
@@ -148,11 +148,7 @@ export default function Home() {
             height: "100%",
           }}
         >
-          <Scene
-            isMobile={isMobile}
-            scrollY={scrollY}
-            lenis={lenisRef.current}
-          />
+          <Scene /> {/* UPDATED: Remove unused props */}
           <Preload all />
         </Canvas>
       </div>

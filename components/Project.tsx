@@ -1,5 +1,7 @@
 // components/Project.tsx (Updated - Add videoId prop; render iframe with wrapper below image; no other changes)
 import React from "react";
+import Image from "next/image"; // NEW: Import for optimized images
+
 // Define the props the component expects
 interface ProjectProps {
   title: string;
@@ -31,7 +33,16 @@ const Project: React.FC<ProjectProps> = ({
           <div className="project-images">
             {" "}
             {/* Left 1/3: Single centered image */}
-            <img src={imageUrl} alt="Project Image" className="project-image" />
+            <div className="project-image-wrapper"> {/* NEW: Wrapper for isolated fill */}
+              <Image
+                src={imageUrl}
+                alt="Project Image"
+                className="project-image"
+                fill // Use fill for responsive scaling without fixed width/height
+                sizes="(max-width: 768px) 100vw, 33vw" // Responsive sizes (full on mobile, ~1/3 on desktop)
+                priority // Eager load to ensure visibility (good for key content)
+              />
+            </div>
             {videoId && ( // NEW: Conditional embed below image
               <div className="video-wrapper">
                 {" "}

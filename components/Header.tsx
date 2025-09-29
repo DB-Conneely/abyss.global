@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import { usePathname, useRouter } from "next/navigation"; // Add imports for pathname/router
+import Image from "next/image"; // NEW: Import for optimized images
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,7 +55,12 @@ const Header: React.FC = () => {
   return (
     <header className="header-layout">
       <a href="/" style={{ padding: 0, margin: 0 }}>
-        <img src="/abyss-logo.png" alt="Abyss Global Logo" height="100" />
+        <Image
+          src="/abyss-logo.png"
+          alt="Abyss Global Logo"
+          height={100}
+          width={100} // NEW: Add explicit width (assuming square aspect; adjust if needed)
+        />
       </a>
       <nav className={`navbar-nav ${isOpen ? "open" : ""}`}>
         <a

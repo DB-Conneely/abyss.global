@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
           rel="noopener noreferrer"
           style={linkStyle}
         >
-          "Earth"
+          &quot;Earth&quot;
         </a>{" "}
         by denis_cliofas &{" "}
         <a
@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
           rel="noopener noreferrer"
           style={linkStyle}
         >
-          "space boi"
+          &quot;space boi&quot;
         </a>{" "}
         by silvercrow101, licensed under{" "}
         <a

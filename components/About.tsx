@@ -7,8 +7,8 @@ const About: React.FC = () => {
       <h2 className="glow">About Abyss</h2>
       <p>
         Welcome to my digital space. This site serves as a real-time portfolio
-        of my development journey, which began in June 2024 with a simple 'Hello
-        World'.
+        of my development journey, which began in June 2024 with a simple &apos;Hello
+        World&apos;.
       </p>
 
       <p>

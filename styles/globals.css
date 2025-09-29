@@ -374,8 +374,18 @@ button:focus {
   justify-content: center; /* Center vertically in column */
   align-items: center; /* Center horizontally in column */
   gap: 1rem; /* Space if multiple images */
-  max-height: none; /* UPDATED: Remove cap to fit image + video without clipping */
-  overflow: hidden; /* Hide overflow if image exceeds cap */
+  max-height: none; /* Remove cap to fit image + video without clipping */
+  position: relative; /* Required for Image with fill prop */
+  height: auto; /* Allow natural height based on content */
+  min-height: 200px; /* Baseline to prevent collapse (adjust as needed) */
+  /* Removed overflow: hidden; to prevent clipping */
+}
+
+.project-image-wrapper {
+  position: relative; /* NEW: Relative for contained fill image */
+  width: 100%; /* Full width of parent */
+  flex: 1; /* Grow to fill available space in flex column */
+  min-height: 200px; /* Baseline for image if no video */
 }
 .project-image {
   max-width: 100%;

@@ -4,14 +4,6 @@ import { supabase } from "@/utils/supabase";
 
 const POSTS_PER_PAGE = 9;
 
-interface Post {
-  id: string;
-  title: string;
-  description: string;
-  slug: string;
-  created_at: string;
-}
-
 export const revalidate = 60;
 
 async function getPosts(page: number = 1) {

@@ -8,15 +8,9 @@ import Lenis from "lenis";
 import * as animations from "@/utils/animations";
 import Starfield from "@/components/Starfield"; // Keep custom
 
-interface SceneProps {
-  isMobile: boolean;
-  scrollY: number;
-  lenis?: Lenis | null;
-}
-const Scene: React.FC<SceneProps> = ({ isMobile, scrollY, lenis }) => {
+interface SceneProps {} // UPDATED: Remove unused props (isMobile, scrollY, lenis)
+const Scene: React.FC<SceneProps> = () => { // UPDATED: No destructured props
   const camera = useThree((state) => state.camera);
-  const gl = useThree((state) => state.gl);
-  const threeScene = useThree((state) => state.scene);
   const heroRef = useRef<THREE.Group>(null);
   const starGroupRef = useRef<THREE.Group>(null); // For rotating both star layers
   const materialsRef = useRef<THREE.MeshStandardMaterial[]>([]);
@@ -69,9 +63,9 @@ const Scene: React.FC<SceneProps> = ({ isMobile, scrollY, lenis }) => {
           ) {
             const originalMaterial = child.material;
             // Extract original textures for PBR continuity
-            const baseColorMap = (originalMaterial as any).map || null; // Albedo texture
+            const baseColorMap = originalMaterial.map || null; // Albedo texture (UPDATED: Direct access, no any cast)
             const normalMap = originalMaterial.normalMap || null;
-            const roughnessMap = (originalMaterial as any).roughnessMap || null;
+            const roughnessMap = originalMaterial.roughnessMap || null; // UPDATED: Direct access, no any cast
             const emissiveMap = originalMaterial.emissiveMap || null;
             // Create a new material with onBeforeCompile hook for ocean lift
             const material = new THREE.MeshStandardMaterial({

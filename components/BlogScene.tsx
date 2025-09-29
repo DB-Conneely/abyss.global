@@ -2,14 +2,16 @@
 "use client";
 import React, { useRef, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { OrbitControls as OrbitControlsComponent, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
+import type { OrbitControls } from 'three-stdlib'; // UPDATED: Correct type import from three-stdlib
+
 interface BlogSceneProps {
   isMobile: boolean;
 }
 const BlogScene: React.FC<BlogSceneProps> = ({ isMobile }) => {
   const groupRef = useRef<THREE.Group>(null);
-  const controlsRef = useRef<any>(null);
+  const controlsRef = useRef<OrbitControls | null>(null); // Use imported instance type
   const { scene: spaceBoi } = useGLTF("/models/space-boi.glb");
   const { gl } = useThree(); // Access renderer for forceContextLoss/cleanup
   // Center, scale, tint purple (no rotation here—model still)
@@ -73,7 +75,7 @@ const BlogScene: React.FC<BlogSceneProps> = ({ isMobile }) => {
       <directionalLight position={[0, 10, 5]} intensity={1.2} color="#ffffff" />
       <group ref={groupRef} />
       {!isMobile && (
-        <OrbitControls
+        <OrbitControlsComponent
           ref={controlsRef}
           enablePan={false}
           enableZoom={false}
