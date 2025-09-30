@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Michroma, Montserrat } from "next/font/google";
 import "../styles/globals.css";
 import Header from "@/components/Header";
-
 const michroma = Michroma({
   subsets: ["latin"],
   variable: "--font-michroma",
@@ -13,18 +12,25 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
 });
-
 // Metadata for SEO
 export const metadata: Metadata = {
-  title: "Abyss Global", // UPDATED: New tab title
-  description: "An interactive journey through the universe with 3D visuals.",
+  title: "Abyss Global: My Evolving Dev Portfolio", 
+  description: "Dive into my solo dev projects, from AI transcription tools to Telegram trading bots. Follow my journey in Software Development and Engineering.",
+  keywords: "dev portfolio, AI development, Solana bot, note-taking app, web3, full-stack SaaS, Software Development, Software Engineering",
   openGraph: {
-    title: "Abyss Global", // UPDATED: Match for social shares
-    description: "Explore cosmic wonders in this immersive web experience.",
+    title: "Abyss Global: My Evolving Dev Portfolio", 
+    description: "Dive into my solo dev projects, from AI transcription tools to Telegram trading bots. Follow my journey in Software Development and Engineering.",
+    images: "/og-image.png",
+    type: "website", 
+    url: "https://abyss.global", 
+  },
+  twitter: { 
+    card: "summary_large_image",
+    title: "Abyss Global: My Evolving Dev Portfolio",
+    description: "Explore my AI-driven dev projects and blog.",
     images: "/og-image.png",
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
