@@ -893,13 +893,13 @@ textarea.input-purple:-webkit-autofill:not(:placeholder-shown) {
 /* Mobile Media Query (shrink text to fit) */
 @media (max-width: 768px) {
   .section#hero h1 {
-    font-size: calc(2rem + 2vw); /* Dynamic shrink (min 2rem, scales with view) */
-    white-space: nowrap; /* UPDATED: nowrap to keep on one line; was normal allowing wrap */
+    font-size: clamp(1.5rem, 6vw, 3rem); /* UPDATED: Use clamp to dynamically shrink (min 1.5rem, based on 6vw, max 3rem) for better fit without overflow */
+    white-space: nowrap; /* Keep on one line */
     max-width: 100vw; /* Cap to screen width */
   }
   .section#hero p {
-    font-size: calc(1rem + 1vw); /* NEW: Dynamic shrink for p to match h1 scaling */
-    white-space: nowrap; /* NEW: Keep p on one line too */
+    font-size: clamp(0.8rem, 4vw, 1.2rem); /* UPDATED: Clamp for p (smaller base, 4vw scaling) to ensure tagline fits without extending off */
+    white-space: nowrap; /* Keep on one line */
     max-width: 100vw; /* Cap to screen width */
   }
   .preloader-image {
