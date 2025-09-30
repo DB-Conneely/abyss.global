@@ -893,10 +893,13 @@ textarea.input-purple:-webkit-autofill:not(:placeholder-shown) {
 /* Mobile Media Query (shrink text to fit) */
 @media (max-width: 768px) {
   .section#hero h1 {
-    font-size: calc(
-      2rem + 2vw
-    ); /* UPDATED: Dynamic shrink (min 2rem, scales with view) */
-    white-space: normal; /* Allow wrap if too long to prevent off-screen */
+    font-size: calc(2rem + 2vw); /* Dynamic shrink (min 2rem, scales with view) */
+    white-space: nowrap; /* UPDATED: nowrap to keep on one line; was normal allowing wrap */
+    max-width: 100vw; /* Cap to screen width */
+  }
+  .section#hero p {
+    font-size: calc(1rem + 1vw); /* NEW: Dynamic shrink for p to match h1 scaling */
+    white-space: nowrap; /* NEW: Keep p on one line too */
     max-width: 100vw; /* Cap to screen width */
   }
   .preloader-image {
