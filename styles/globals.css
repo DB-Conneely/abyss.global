@@ -508,7 +508,7 @@ fieldset {
   background: rgba(132, 0, 255, 0.402); /* Kept translucent purple bg */
   margin: 0 0 5px;
   padding: 10px;
-  font: 400 12px/16px var(--font-montserrat); /* Used our font */
+  font: 400 16px/20px var(--font-montserrat); /* UPDATED: Font-size to 16px (with line-height 20px) to prevent iOS auto-zoom on focus */
   color: var(--text); /* Light text for visibility */
   /* Removed rounded for square look */
 }
